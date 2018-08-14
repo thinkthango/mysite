@@ -1,0 +1,29 @@
+/*全局设置*/
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    background-color: #9dc9f7;
+}
+
+.reg_main {
+    width:900px;
+    border: 0px solid blue;
+    text-align:right;
+    /* float:right; */
+
+}
+
+.reg_info {
+    width:300px;
+    height:30px;
+}
+
+.reg_btn {
+    margin: auto;
+    height:30px;
+    width: 15%;
+    transform: translate(-50%, -50%);
+}

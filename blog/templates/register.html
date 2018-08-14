@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <!--{% load static %}-->
+    <!--<link href="{% static "css/register.css" %}" rel="stylesheet" type="text/css" />-->
+    <link href="/static/css/register.css" rel="stylesheet">
+</head>
+<body>
+
+    <h2 align="center"><i>欢 迎 注 册 ~ ~ </i></h2>
+    <div>
+        <br>
+    </div>
+    <div class="reg_main" align="center">
+        <form action="/login/" method="post">
+            {% csrf_token %}
+            用户名：<input type="text" name="username" class="reg_info"/><br><br>
+            密  码：<input type="password" name="password" class="reg_info"/><br><br>
+            <input type="submit" value="注册" class="reg_btn"/>
+        </form>
+        <span style="width:500px;" ></span>
+    </div>
+
+
+</body>
+</html>
