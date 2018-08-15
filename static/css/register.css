@@ -9,7 +9,7 @@ h2 {
 }
 
 .reg_main {
-    width:900px;
+    width:60%;
     border: 0px solid blue;
     text-align:right;
     /* float:right; */
@@ -21,9 +21,22 @@ h2 {
     height:30px;
 }
 
-.reg_btn {
+.span_btn {
     margin: auto;
+    padding:0px 0px 0px 0px;
+}
+
+.reg_btn {
     height:30px;
-    width: 15%;
-    transform: translate(-50%, -50%);
+    width: 260px;
+    background-color:#9dc9f7;
+    border-radius:10px;
+    border:1px solid #9dc9f7;
+}
+
+.label_info {
+    display:none;
+    font-size:1em;
+    color:red;
+    margin: auto;
 }
