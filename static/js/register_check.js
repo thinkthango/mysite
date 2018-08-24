@@ -28,9 +28,11 @@ function checkInput(){
         return false;
     }
 
-    $.post("register/check",
+    $.post("http://127.0.0.1:8000/" + "userinfo/check",
         {
             username:username,
+            password:password,
+            flgstr:'register',
             csrfmiddlewaretoken:$("[name='csrfmiddlewaretoken']").val()
         },
         function(result,status){

@@ -47,29 +47,41 @@ def register_index(request):
     return render(request,'register.html',{'stringlist':stringlist,'strings':string})
 
 
-def register_check(request):
-    print('fnc register_check() start')
+def userinfo_check(request):
+    print('fnc userinfo_check() start')
     result = {}
     username = request.POST.get('username')
-    # password = request.POST.get('password')
-
-    # queryStr = 'select count(*) from UserInfo where user = \'%s\' and pwd = \'%s\'' %(username,password)
-    queryStr = 'select count(*) cnt from blog_userinfo where user = \'%s\'' %(username)
+    password = request.POST.get('password')
+    flgstr = request.POST.get('flgstr')
+    print('flgstr',flgstr)
+    if flgstr == 'login':
+        queryStr = 'select count(*) from blog_userinfo where user = \'%s\' and pwd = \'%s\'' %(username,password)
+    else:
+        queryStr = 'select count(*) cnt from blog_userinfo where user = \'%s\'' %(username)
     cursor = connection.cursor()
     cursor.execute(queryStr)
     rec = cursor.fetchone()
     print(queryStr)
     print(rec)
 
-    if rec[0] == 0:
-        result['result'] = 'OK'
-        # result['status'] = '200'
-        return HttpResponse(json.dumps(result))
+    if flgstr == 'login':
+        if rec[0] != 0:
+            result['result'] = 'OK'
+            # result['status'] = '200'
+            return HttpResponse(json.dumps(result))
+        else:
+            result['result'] = 'NG'
+            # result['status'] = '200'
+            return HttpResponse(json.dumps(result))
     else:
-        result['result'] = 'NG'
-        # result['status'] = '200'
-        return HttpResponse(json.dumps(result))
-
+        if rec[0] == 0:
+            result['result'] = 'OK'
+            # result['status'] = '200'
+            return HttpResponse(json.dumps(result))
+        else:
+            result['result'] = 'NG'
+            # result['status'] = '200'
+            return HttpResponse(json.dumps(result))
 
 def add(request,a,b):
     # a = request.GET.get('a')

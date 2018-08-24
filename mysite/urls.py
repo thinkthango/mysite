@@ -23,7 +23,7 @@ urlpatterns = [
     path('blog/', views.blog_index),
     path('login/', views.login_index),
     path('register/', views.register_index),
-    path('register/check', views.register_check),
+    path('userinfo/check', views.userinfo_check),
     path('', views.register_index),
     path('add/<int:a>/<int:b>', views.add),
 ]

@@ -1,5 +1,55 @@
 body {
     margin: 0;
     padding: 0;
+    background-color:#FFFFCC;
+}
+h1{
+    text-align: center;
+    color:#660066;
+}
+
+.label_info {
+    display:none;
+    font-size:1em;
+    color:red;
+    margin: auto;
+    text-align:center;
+}
+
+.div_login{
+    width:500px;
+    height:300px;
+    margin: auto;
+    padding:0px 0px 0px 0px;
     background-image:url(../image/timg.jpg);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+}
+
+.frm_login{
+    margin:0px 150px 50px 30px;
+}
+
+.lable_login{
+    float:right;
+}
+.submit_login{
+    float:right;
+    text-align:right;
+    width:140px;
+}
+.submit_login input{
+    width:80px;
+}
+.submit_login a{
+    font-size:60%;
+}
+
+
+.desctxt{
+    float:right;
+    margin-top:12%;
+    font-size:50%;
+    color:rgb(2,99,148);
 }

@@ -4,14 +4,34 @@
     <meta charset="UTF-8">
     <title>简易任务管理系统</title>
     <link href="/static/css/login.css" rel="stylesheet">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/static/js/login_check.js"></script>
 </head>
 <body>
-    <form action="/blog/" method="post">
-        {% csrf_token %}
-        用户名：<input type="text" name="username" /><br />
-        密码：<input type="password" name="password" /><br />
-        <input type="submit" value="提交" />
-    </form>
-
+    <h1><i>简易任务管理系统</i></h1>
+    <br>
+    <br>
+    <br>
+    <div class="div_login">
+        <div>&nbsp;</div>
+        <label class="label_info">提示信息</label><br>
+        <div>&nbsp;</div>
+        <form action="/blog/" method="post" class="frm_login" onsubmit="return checkInput()">
+            {% csrf_token %}
+            <span class="lable_login">
+                用户名：
+                <input type="text" name="username" />
+            </span><br><br>
+            <span class="lable_login">
+                密码：
+                <input type="password" name="password" />
+            </span><br><br><br>
+            <div class="submit_login">
+                <a href="/register/">注册</a>&nbsp;&nbsp;
+                <input type="submit" value="提交" />
+            </div>
+        </form>
+        <div class="desctxt"><i>CopyRight@ kusy 2018.08 &nbsp;&nbsp;</i></div>
+    </div>
 </body>
 </html>
