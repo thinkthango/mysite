@@ -24,6 +24,6 @@ urlpatterns = [
     path('login/', views.login_index),
     path('register/', views.register_index),
     path('userinfo/check', views.userinfo_check),
-    path('', views.register_index),
+    path('', views.login_index),
     path('add/<int:a>/<int:b>', views.add),
 ]

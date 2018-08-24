@@ -31,7 +31,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="14ddccf9-bb63-46f6-b6bc-49ed3e0fa870">
-      <console name="Connection" type="STANDARD"><![CDATA[select count(*) cnt from blog_userinfo where user = 'ww']]></console>
+      <console name="Connection" type="STANDARD"><![CDATA[delete from blog_userinfo;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">

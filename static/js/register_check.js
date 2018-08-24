@@ -68,6 +68,12 @@ function checkInput(){
 
     //debugger;
     //document.write("flgCheckResponseData:" + flgCheckResponseData);
+
+    //cookie中添加用户名
+    var expdate = new Date();
+    expdate.setTime(expdate.getTime() + 14 * (24 * 60 * 60 * 1000));
+    document.cookie = "username=" + username+ "; expires=" + expdate.toGMTString()+"; path=/";
+    document.cookie = "secure; path=/";
     return flgCheckResponseData;
 }
 
