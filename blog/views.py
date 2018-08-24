@@ -4,8 +4,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.db import connection
 
-from blog import models
 from blog.models import BlogsPost
+from blog.models import UserInfo
 
 # Create your views here.
 
@@ -16,12 +16,13 @@ def blog_index(request):
     return render(request,'index.html', {'blog_list':blog_list})   # 返回index.html页面
 
 def login_index(request):
+    print('fnc login_index() start')
     global user_list
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        models.UserInfo.objects.create(user=username, pwd=password)
-        user_list = models.UserInfo.objects.all()
+        UserInfo.objects.create(user=username, pwd=password)
+        user_list = UserInfo.objects.all()
 
         for u in user_list:
             print(u.user,u.pwd)
@@ -33,15 +34,21 @@ def login_index(request):
 
 
 def register_index(request):
+    string = '持续学习ing...'
+    stringlist = ['day day up' + str(i) for i in range(5)]
+    print('fnc register_index() start')
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        models.UserInfo.objects.create(user=username, pwd=password)
+        UserInfo.objects.create(user=username, pwd=password)
+        print('register_index',username,password)
+        return render(request,'login.html')
 
-    return render(request,'register.html')
+    return render(request,'register.html',{'stringlist':stringlist,'strings':string})
 
 
 def register_check(request):
+    print('fnc register_check() start')
     result = {}
     username = request.POST.get('username')
     # password = request.POST.get('password')
@@ -62,3 +69,10 @@ def register_check(request):
         result['result'] = 'NG'
         # result['status'] = '200'
         return HttpResponse(json.dumps(result))
+
+
+def add(request,a,b):
+    # a = request.GET.get('a')
+    # b = request.GET.get('b')
+    c = int(a) + int(b)
+    return HttpResponse(c)

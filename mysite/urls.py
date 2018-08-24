@@ -25,4 +25,5 @@ urlpatterns = [
     path('register/', views.register_index),
     path('register/check', views.register_check),
     path('', views.register_index),
+    path('add/<int:a>/<int:b>', views.add),
 ]

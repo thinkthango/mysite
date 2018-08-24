@@ -25,12 +25,17 @@
             <span class="span_btn">
                 <input type="submit" value="注册" class="reg_btn"/>
             </span>
-            <a href="/login">去登录</a>
+            <a href="/login/">去登录</a>
         </form>
 
         <!--<button class="reg_btn">TEST</button>-->
         <span style="width:50%;" ></span>
     </div>
+    <!--<div style="float:right">{{strings}}</div>-->
+    <div>&nbsp;&nbsp;{{strings}}</div>
+    {% for sl in stringlist %}
+    <div>&nbsp;&nbsp;{{sl}}</div>
+    {% endfor %}
 
 </body>
 </html>

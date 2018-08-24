@@ -12,6 +12,10 @@
 //}
 var flgCheckResponseData = false;
 
+$.ajaxSetup({
+  async: false
+  });
+
 function checkInput(){
     var username = $("input[name='username']").val();
     var password = $("input[name='password']").val();
@@ -39,7 +43,10 @@ function checkInput(){
                 $(".label_info").fadeOut(3000);
                 flgCheckResponseData = false;
             } else {
-                $(".label_info").css({"display":"none"})
+                //$(".label_info").css({"display":"none"})
+                $(".label_info").text("success");
+                $(".label_info").css({"color":"blue","display":"block"});
+                $(".label_info").fadeOut(2000);
                 flgCheckResponseData = true;
             }
         }
@@ -58,7 +65,7 @@ function checkInput(){
 //    });
 
     //debugger;
-
+    //document.write("flgCheckResponseData:" + flgCheckResponseData);
     return flgCheckResponseData;
 }
 
