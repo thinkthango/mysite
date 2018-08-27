@@ -14,25 +14,61 @@
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
+    <link href="/static/css/taskmanage.css" rel="stylesheet">
 
   </head>
 
   <body>
+    <h1 class="userinfo username">{{ username }}</h1>
+    <br><br>
+    <div class="manage_btn">
+      <span>
+        <button class="add" onclick="jQuery('.addBox').show()">新增</button>
+      </span>
+      <span>
+        <button class="edit">编辑</button>
+      </span>
+      <span>
+        <button class="delete">删除</button>
+      </span>
+    </div>
+    <br><br>
+    <hr>
 
-    <div class="container" style="margin-top: 50px;">
+    <!--数据区-->
+    <table class="data_table" >
+      <tr>
+        <th>选择</th>
+        <th>任务编号</th>
+        <th>任务内容</th>
+        <th>任务时间</th>
+        <th style="color:red;">执行人员</th>
+        <th>执行状态</th>
+        <th>备注</th>
+      </tr>
 
-      <div class="starter-template">
+      {% for task in task_list %}
+      <tr>
+        <td><input type="checkbox"> </td>
+        <td>{{ task.taskno }}</td>
+        <td>{{ task.taskcontent }}</td>
+        <td>{{ task.taskdate }}</td>
+        <td>{{ task.taskperson }}</td>
+        <td>{{ task.taskstatus }}</td>
+        <td>{{ task.taskps }}</td>
+      </tr>
+      {% endfor%}
 
-        {% for blog in blog_list %}
-            <h2>{{ blog.title }}</h2>
-            <p>{{ blog.timestamp }}</p>
-            <p>{{ blog.body }}</p>
-        {% endfor %}
+    </table>
 
+    <div class="box">
+      <div class="addBox">
+        <div style="color:#27520c;">
+          <span>新增任务</span>
+          <a href="javascript:;" onclick="jQuery('.addBox').hide();" class="close">X&nbsp;&nbsp;</a>
+        </div>
       </div>
-
-    </div><!-- /.container -->
+    </div>
 
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
