@@ -176,12 +176,63 @@ def taskmanage_update_taskbyno(request):
         taskstatus = req.get('taskstatus')
         taskps = req.get('taskps')
         task = TaskInfo.objects.get(taskno=taskno)
-        print('query sql :',str(task.query))
+        # print('query sql :',str(task.query))
         task.taskstatus = taskstatus
         task.taskps = taskps
         task.save()
         return HttpResponse('OK')
     return HttpResponse('NG')
+
+
+@csrf_exempt
+def taskmanage_delete_taskbyno(request):
+    print('fnc taskmanage_delete_taskbyno() start')
+    if request.method == 'GET':
+        taskno = request.GET.get('taskno')
+        TaskInfo.objects.filter(taskno=taskno).delete()
+        return HttpResponse('Delete Success!')
+
+    return HttpResponse('NG')
+
+
+def taskmanage_search(request):
+    print('fnc taskmanage_search() start')
+    username = u'无名大侠'
+    if request.method == 'GET':
+        searchperson = request.GET.get('searchperson')
+        print(searchperson)
+        searchperson = str.strip(searchperson,' ')
+
+        if 'username' in request.COOKIES:
+            username = request.COOKIES["username"]
+        else:
+            return render(request,'login.html')
+    task_list = TaskInfo.objects.filter(taskperson=searchperson)
+    user_list = UserInfo.objects.all()
+
+    # 任务编号设置（最大值+1）
+    newtaskno = TaskInfo.objects.all().order_by('-taskno')[0].taskno + 1
+    # 任务时间格式调整
+    new_task_list = []
+    for task in task_list:
+        task_dict = {}
+        task_dict['taskno'] = task.taskno
+        task_dict['taskcontent'] = task.taskcontent
+        task_dict['taskdate'] = task.taskdate.strftime('%Y-%m-%d %H:%M:%S')
+        task_dict['taskperson'] = task.taskperson
+        task_dict['taskstatus'] = task.taskstatus
+        task_dict['taskps'] = task.taskps
+        new_task_list.append(task_dict)
+    return HttpResponse(json.dumps({'tasks':new_task_list,'cnt':len(new_task_list)}))
+
+    # if not new_task_list:
+    #     return render(request,'taskmanage.html',{'username':username,'user_list':new_task_list})
+    # else:
+    #     return render(request,'taskmanage.html',
+    #                   {'task_list':new_task_list,'username':username,
+    #                    'user_list':user_list,'newtaskno':newtaskno}
+    #                   )
+
 
 def add(request,a,b):
     # a = request.GET.get('a')

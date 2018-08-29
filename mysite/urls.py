@@ -18,6 +18,7 @@ from django.urls import path
 
 from blog import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', views.blog_index),
@@ -27,7 +28,15 @@ urlpatterns = [
     path('', views.login_index),
     path('taskmanage/', views.taskmanage_index),
     path('taskmanage/add', views.taskmanage_add),
+    path('taskmanage/search', views.taskmanage_search),
     path('taskmanage/select_taskbyno', views.taskmanage_select_taskbyno),
+    path('taskmanage/delete_taskbyno', views.taskmanage_delete_taskbyno),
     path('taskmanage/update_taskbyno', views.taskmanage_update_taskbyno),
     path('add/<int:a>/<int:b>', views.add),
 ]
+
+
+
+
+
+

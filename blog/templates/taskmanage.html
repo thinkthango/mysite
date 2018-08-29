@@ -19,7 +19,11 @@
   </head>
 
   <body>
-    <h1 class="userinfo username">{{ username }}</h1>
+    <h1 class="userinfo username">
+      {{ username }}
+      <span class="myquote" style="font-size:15px;color:#ff6d15;">路漫漫其修远兮...</span>
+    </h1>
+
     <br><br>
     <div class="manage_btn">
       <span>
@@ -29,11 +33,20 @@
         <button class="edit" onclick="editClick();">编辑</button>
       </span>
       <span>
-        <button class="delete" disabled style="background:gray;opacity:0.5">删除</button>
+        <button class="delete" onclick="delTask();">删除</button>
       </span>
+      <span>
+        <button class="search" disabled style="background:gray;opacity:0.5">查询</button>
+      </span>
+      <select name="search_person" onchange="searchPerson();" title="按人员查询">
+        <option></option>
+        {% for u in user_list %}
+          <option> {{ u.user }} </option>
+        {% endfor %}
+      </select>
     </div>
     <br><br>
-    <hr>
+    <hr style="height:2px;border:none;border-top:2px ridge;" />
 
     <!--数据区-->
     <table class="data_table">
