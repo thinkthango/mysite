@@ -23,20 +23,20 @@
     <br><br>
     <div class="manage_btn">
       <span>
-        <button class="add" onclick="jQuery('.addBox').show()">新增</button>
+        <button class="add" onclick="addClick();">新增</button>
       </span>
       <span>
-        <button class="edit">编辑</button>
+        <button class="edit" onclick="editClick();">编辑</button>
       </span>
       <span>
-        <button class="delete">删除</button>
+        <button class="delete" disabled style="background:gray;opacity:0.5">删除</button>
       </span>
     </div>
     <br><br>
     <hr>
 
     <!--数据区-->
-    <table class="data_table" >
+    <table class="data_table">
       <tr>
         <th>选择</th>
         <th>任务编号</th>
@@ -49,7 +49,7 @@
 
       {% for task in task_list %}
       <tr>
-        <td><input type="checkbox"> </td>
+        <td><input type="radio" name="select_record" checked="checked"> </td>
         <td>{{ task.taskno }}</td>
         <td>{{ task.taskcontent }}</td>
         <td>{{ task.taskdate }}</td>
@@ -57,20 +57,105 @@
         <td>{{ task.taskstatus }}</td>
         <td>{{ task.taskps }}</td>
       </tr>
-      {% endfor%}
+      {% endfor %}
 
     </table>
 
     <div class="box">
       <div class="addBox">
-        <div style="color:#27520c;">
-          <span>新增任务</span>
-          <a href="javascript:;" onclick="jQuery('.addBox').hide();" class="close">X&nbsp;&nbsp;</a>
+        <div class="addHeader">
+          <span><b>新增任务</b></span>
+          <a href="javascript:;" onclick="jQuery('.addBox').hide();" class="close">×&nbsp;&nbsp;</a>
         </div>
+
+        <form class="addForm" action="./add" onsubmit="return addTask();" method="post">
+          {% csrf_token %}
+          <br>任务编号<span class="space"></span>
+          <input type="text" name="taskno" value={{ newtaskno }} readonly>
+          <br><br>任务内容<span class="space"></span>
+          <!--<input type="text" name="taskcontent">-->
+          <textarea name="taskcontent"></textarea>
+          <br><br>任务时间<span class="space"></span>
+          <input type="datetime-local" name="taskdate">
+          <br><br>执行人员<span class="space"></span>
+          <select name="taskperson">
+            <option></option>
+            {% for u in user_list %}
+              <option> {{ u.user }} </option>
+            {% endfor %}
+          </select>
+          <!--<input type="text" name="taskperson">-->
+          <br><br>执行状态<span class="space"></span>
+          <select name="taskstatus">
+            <option>未开始</option>
+            <option>执行中</option>
+            <option>已完成</option>
+          </select>
+          <br><br>备注一下<span class="space"></span>
+          <input type="text" name="taskps" value="">
+          <br><br>
+          <div align="right">
+            <input type="button" value="重置" class="task_clearbtn" onclick="clearAddbox();">
+            <input type="submit" value="保存" class="task_savebtn" >
+          </div>
+        </form>
+
+      </div>
+      <div class="editBox">
+        <div class="editHeader">
+          <span><b>编辑任务</b></span>
+          <a href="javascript:;" onclick="jQuery('.editBox').hide();" class="close">×&nbsp;&nbsp;</a>
+        </div>
+
+        <form class="editForm" action="" onsubmit="return editTask()" method="post">
+          {% csrf_token %}
+          <br>任务编号<span class="space"></span>
+          <input type="text" name="taskno" value={{ newtaskno }} readonly>
+          <br><br>任务内容<span class="space"></span>
+          <!--<input type="text" name="taskcontent">-->
+          <textarea name="taskcontent" disabled></textarea>
+          <br><br>任务时间<span class="space"></span>
+          <input type="datetime-local" name="taskdate" disabled>
+          <br><br>执行人员<span class="space"></span>
+          <select name="taskperson" disabled>
+            <option></option>
+            {% for u in user_list %}
+              <option> {{ u.user }} </option>
+            {% endfor %}
+          </select>
+          <!--<input type="text" name="taskperson">-->
+          <br><br>执行状态<span class="space"></span>
+          <select name="taskstatus">
+            <option>未开始</option>
+            <option>执行中</option>
+            <option>已完成</option>
+          </select>
+          <br><br>备注一下<span class="space"></span>
+          <input type="text" name="taskps" value="">
+          <br><br>
+          <div align="right">
+            <input type="submit" value="保存" class="task_edit_savebtn" >
+          </div>
+        </form>
+
       </div>
     </div>
 
+    <!--遮罩层-->
+    <div style="z-index:19891022; background-color:#000; opacity:0.3; filter:alpha(opacity=30);"></div>
+
+    <!--<script type="text/javascript">-->
+    <!--function showDiv(){-->
+        <!--document.getElementById('popDiv').style.display='block';-->
+        <!--document.getElementById('bg').style.display='block';-->
+    <!--}-->
+    <!--function closeDiv(){-->
+        <!--document.getElementById('popDiv').style.display='none';-->
+        <!--document.getElementById('bg').style.display='none';-->
+    <!--}-->
+    <!--</script>-->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/static/js/taskmanage.js"></script>
   </body>
 </html>

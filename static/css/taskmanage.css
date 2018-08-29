@@ -4,6 +4,136 @@ body {
     background-color:#FFFFCC;
 }
 h1{
-    text-align: center;
+    margin: 0px 0px 0px 20px;
+    text-align:left;
+    font-size:50px;
     color:#660066;
+}
+
+.manage_btn{
+    float:right;
+    margin: 0px 5% 0px 20px;
+}
+.manage_btn button{
+    width:80px;
+    height:40px;
+    margin: 0px 30px 0px 0px;
+}
+
+.data_table,.data_table tr th, .data_table tr td{
+    border:1px solid #878a8c;
+}
+
+.data_table{
+    width:90%;
+    margin: 20px 5% 0px 5%;
+    //border-style: solid;
+    //border-width:1px;
+    //border-color: grey;
+    //border-collapse: collapse;
+    //padding:2px;
+    //border-color: transparent;
+}
+tr th{
+    text-align:center;
+    background:#827302;
+    color:white;
+}
+tr td{
+    text-align:center;
+}
+tr td:nth-child(3){
+    text-align:left;
+}
+tr td:nth-child(7){
+    text-align:left;
+}
+
+//新增任务页面
+body{
+    display:none;
+    background-color: #ccc;
+    width: 100%;
+    position:absolute;
+    height: 100%;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+/*
+.addBox{
+    padding-top: 10%;
+    padding-left:40%;
+    z-index:1;
+}
+*/
+.addBox,.editBox{
+    width: 500px;
+    height: 470px;
+    position: fixed;left: 45%; top: 25%;
+    margin-left: -250px;
+    //background: #b1ea8e;
+    border: 0px solid #000000;
+    display:none;
+    padding:0px;
+    background-image:url(../image/timg.jpg);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+}
+.addHeader,.editHeader{
+    background:#827302;
+    color:white;
+    //opacity:0.9;
+}
+
+.addForm,.editForm{
+    float:right;
+    padding:0px 80px 0px 20px;
+}
+.addForm input,.editForm input{
+    width:300px;
+    height:30px;
+    //margin-right:30%;
+}
+.addForm textarea,.editForm textarea{
+    width:300px;
+    height:60px;
+    //margin-right:30%;
+}
+.addForm select,.editForm select{
+    width:300px;
+    height:30px;
+    //margin-right:30%;
+}
+
+input[name='taskno']{
+    background:rgba(210,202,202,0.8);
+    //background-color: #eee;
+    //opacity: 1;
+}
+
+.editForm textarea, .editForm select[name='taskperson'], .editForm input[name='taskdate'] {
+    background:rgba(210,202,202,0.8);
+}
+
+
+span.space{
+    margin-left:30px;
+}
+
+.task_savebtn{
+    width:150px !important;
+    height:50px !important;
+    //background:#99f5a5;
+}
+.task_clearbtn{
+    width:150px !important;
+    height:50px !important;
+}
+.task_edit_savebtn{
+    width:150px !important;
+    height:50px !important;
+    margin-right:20%;
+    //background:#99f5a5;
 }

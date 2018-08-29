@@ -28,7 +28,7 @@ function checkInput(){
         return false;
     }
 
-    $.post("http://127.0.0.1:8000/" + "userinfo/check",
+    $.post(window.location.protocol + '//' + window.location.host + "/userinfo/check",
         {
             username:username,
             password:password,

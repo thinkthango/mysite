@@ -35,7 +35,7 @@ function checkInput(){
         return false;
     }
 
-    $.post("http://127.0.0.1:8000/" + "userinfo/check",
+    $.post(window.location.protocol + '//' + window.location.host + "/userinfo/check",
         {
             username:username,
             password:password,
@@ -43,8 +43,8 @@ function checkInput(){
             csrfmiddlewaretoken:$("[name='csrfmiddlewaretoken']").val()
         },
         function(result,status){
-            console.log(result);
             result = JSON.parse(result);
+            console.log("userinfo check result:" + result["result"]);
             //if (result.indexOf("NG") != -1) {
             if (result["result"] == "NG") {
                 $(".label_info").css({"display":"block"});
@@ -75,6 +75,9 @@ function checkInput(){
 
     //debugger;
     //document.write("flgCheckResponseData:" + flgCheckResponseData);
+    if (flgCheckResponseData)
+        setCookie(username);
+        //window.location.href=window.location.protocol + '//' + window.location.host +'/taskmanage/';
     return flgCheckResponseData;
 }
 
@@ -93,6 +96,18 @@ if (document.cookie.length>0)
   }
 return ""
 }
+
+function setCookie(username)
+{
+    if (getCookie("username") != "")
+        return;
+    //cookie中添加用户名
+    var expdate = new Date();
+    expdate.setTime(expdate.getTime() + 14 * (24 * 60 * 60 * 1000));
+    document.cookie = "username=" + username+ "; expires=" + expdate.toGMTString()+"; path=/";
+    document.cookie = "secure; path=/";
+}
+
 
 function StringFormat() {
     if (arguments.length == 0)

@@ -25,5 +25,9 @@ urlpatterns = [
     path('register/', views.register_index),
     path('userinfo/check', views.userinfo_check),
     path('', views.login_index),
+    path('taskmanage/', views.taskmanage_index),
+    path('taskmanage/add', views.taskmanage_add),
+    path('taskmanage/select_taskbyno', views.taskmanage_select_taskbyno),
+    path('taskmanage/update_taskbyno', views.taskmanage_update_taskbyno),
     path('add/<int:a>/<int:b>', views.add),
 ]

@@ -11,3 +11,12 @@ class BlogsPost(models.Model):
 class UserInfo(models.Model):
     user = models.CharField(max_length = 32)  # 用户名
     pwd = models.CharField(max_length = 32)  # 密码
+
+
+class TaskInfo(models.Model):
+    taskno = models.IntegerField()  # 任务编号
+    taskcontent = models.TextField()  # 任务内容
+    taskdate = models.DateTimeField()  # 任务时间
+    taskperson = models.CharField(max_length=50)  # 执行人员
+    taskstatus = models.CharField(max_length=1)  # 执行状态
+    taskps = models.CharField(max_length=255)  # 备注信息
