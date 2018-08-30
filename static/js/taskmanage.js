@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-//$("input[name='username']").val(getCookie("username"));
+    turnGray();
 });
 
 function addClick(){
@@ -93,7 +93,7 @@ function editTask(){
         type : "POST",
         async : false,
         cache : false,
-        url : "./updatetask",
+        url : "./update_taskbyno",
         data : JSON.stringify({
             'taskno':taskno,
             //'taskcontent':taskcontent,
@@ -228,7 +228,6 @@ function clearAddbox(){
 }
 
 //已完成状态数据背景色置灰
-turnGray();
 function turnGray(){
     $(".data_table tr").children().each(function(){
         if ($(this).text()=='已完成'){
