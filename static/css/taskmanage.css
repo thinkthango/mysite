@@ -74,7 +74,7 @@ tr td:nth-child(7){
 .addBox,.editBox{
     width: 500px;
     height: 470px;
-    position: fixed;left: 45%; top: 20%;
+    position: fixed;left: 45%; top: 28%;
     margin-left: -250px;
     //background: #b1ea8e;
     border: 0px solid #000000;

@@ -4,7 +4,7 @@ $(document).ready(function(){
 });
 
 function addClick(){
-    $("input[name='taskdate']").val(getNowFormatDate());
+    $(".addForm input[name='taskdate']").val(getNowFormatDate());
     jQuery('body,.addBox').show();
     return 0;
 }
@@ -93,7 +93,7 @@ function editTask(){
         type : "POST",
         async : false,
         cache : false,
-        url : "./update_taskbyno",
+        url : "./updatetask",
         data : JSON.stringify({
             'taskno':taskno,
             //'taskcontent':taskcontent,
@@ -101,7 +101,7 @@ function editTask(){
             'taskps':taskps,
             'csrfmiddlewaretoken':$("[name='csrfmiddlewaretoken']").val() //getCookie("csrftoken")
             }),
-        success:function(data){},
+        //success:function(data){},
         error :function(){alert('请求错误！');}
     });
 
@@ -207,7 +207,7 @@ function searchPerson(){
                     $('.data_table').append(tr);
                 }
                 // $(".data_table").append(infos);
-
+                turnGray();
                 //$('html').html(data);
                 //设置条件人员被选中
                 $("select[name='search_person'] option[text='" + searchperson + "']").attr("selected", true);
@@ -261,16 +261,24 @@ function getNowFormatDate() {
     var date = new Date();
     var seperator1 = "-";
     var seperator2 = ":";
-    var month = date.getMonth() + 1;
+    var month = date.getMonth() + 1;//Date类的getMonth方法的返回值比实际月份少一
     var strDate = date.getDate();
+    var strHours = date.getHours();
+    var strMinutes = date.getMinutes();
     if (month >= 1 && month <= 9) {
         month = "0" + month;
     }
     if (strDate >= 0 && strDate <= 9) {
         strDate = "0" + strDate;
     }
+    if (strHours >= 0 && strHours <= 9) {
+        strHours = "0" + strHours;
+    }
+    if (strMinutes >= 0 && strMinutes <= 9) {
+        strMinutes = "0" + strMinutes;
+    }
     var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-            + "T" + date.getHours() + seperator2 + date.getMinutes();
+            + "T" + strHours + seperator2 + strMinutes;
             //+ seperator2 + date.getSeconds();
     return currentdate;
 }

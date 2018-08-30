@@ -11,19 +11,90 @@
     <title>任务管理</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
 
     <!-- Custom styles for this template -->
     <link href="/static/css/taskmanage.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="/static/css/tm_common.css" rel="stylesheet">-->
+
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/static/js/taskmanage.js"></script>
 
   </head>
 
   <body>
     <h1 class="userinfo username">
+      <a href="#" class="bind_hover_card" data-toggle="popover" data-placement="bottom" data-trigger="hover" style="margin:0px;">
+        <img src='../../static/image/photo.jpg'>
+      </a>
       {{ username }}
       <span class="myquote" style="font-size:15px;color:#ff6d15;">路漫漫其修远兮...</span>
     </h1>
 
+    <script>
+    $(function() {
+      $("[data-toggle='popover']").popover({
+          trigger:'click',
+          html : true,
+          title: title(),
+          //delay:{show:500, hide:2000},
+          content: function() {
+            return content();
+          },
+          animation: true
+      });
+      /*
+      .on("mouseenter", function () {
+                                  var _this = this;
+                                  $(this).popover("show");
+                                  $(this).siblings(".popover").on("mouseleave", function () {
+                                      $(_this).popover('hide');
+                                  });
+                              }).on("mouseleave", function () {
+                                  var _this = this;
+                                  setTimeout(function () {
+                                      if (!$(".popover:hover").length) {
+                                          $(_this).popover("hide")
+                                      }
+                                  }, 2000);
+                                  });*/
+    });
+    //模拟动态加载标题(真实情况可能会跟后台进行ajax交互)
+    function title() {
+        return '个人信息';
+    }
+
+    //模拟动态加载内容(真实情况可能会跟后台进行ajax交互)
+    function content() {
+        var data = $("<ul style='width:320px;height:100px;center:right;'>" +
+                        "<li>座右铭&nbsp;" +
+                          "<input type='text' class='newQuote'>" +
+                          "&nbsp;<input id='quoteBtn' type='button' value='保存' onclick='saveQuote()'/>" +
+                        "<li>新密码&nbsp;" +
+                          "<input type='password' class='newPwd' disabled>" +
+                          "&nbsp;<input id='repwdBtn' type='button' value='修改' disabled onclick='editPwd()'/>" +
+                        "<li><font style='color:white;'>退出去</font>&nbsp;" +
+                          "<input type='password' class='newPwd' style='visibility: hidden;' disabled>" +
+                          "&nbsp;<input id='exitBtn' type='button' value='退出' onclick='exit()'/>" +
+                      "</ul>"
+                    );
+
+        return data;
+    }
+
+    //悬浮框保存
+    function saveQuote() {
+        $('.myquote').text($('.newQuote').val());
+        return 0;
+    }
+    //悬浮框退出
+    function exit() {
+        window.location.href='../login';
+    }
+
+    </script>
     <br><br>
     <div class="manage_btn">
       <span>
@@ -81,7 +152,7 @@
           <a href="javascript:;" onclick="jQuery('.addBox').hide();" class="close">×&nbsp;&nbsp;</a>
         </div>
 
-        <form class="addForm" action="./add" onsubmit="return addTask();" method="post">
+        <form class="addForm" action="" onsubmit="return addTask();" method="post">
           {% csrf_token %}
           <br>任务编号<span class="space"></span>
           <input type="text" name="taskno" value={{ newtaskno }} readonly>
@@ -167,8 +238,6 @@
         <!--document.getElementById('bg').style.display='none';-->
     <!--}-->
     <!--</script>-->
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/static/js/taskmanage.js"></script>
+
   </body>
 </html>
