@@ -1,4 +1,17 @@
 a:link {color:#FF0000;} /* 未访问的链接 */
-a:visited {color:#00FF00;} /* 已访问的链接 */
+a:visited {color:#ffc107;} /* 已访问的链接 */
 a:hover {color:#FF00FF;} /* 鼠标划过链接 */
 a:active {color:#0000FF;} /* 已选中的链接 */
+
+
+footer{
+    position: fixed;
+    background-color: #333333;
+    color: #FFF;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    height: 60px;
+    line-height: 20px;
+}

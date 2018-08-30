@@ -2,11 +2,16 @@
 body {
     margin: 0;
     padding: 0;
-    background-color:#c7d8dc;
+    background-image:url(../image/bg.jpg);
+    //background-repeat:no-repeat;
+    -moz-background-size:100% 100%;
+    opacity: 0.8;
+    z-index: 1;
 }
 
 h2 {
     background-color: #9dc9f7;
+    margin-top:0px;
 }
 
 .reg_main {
@@ -32,7 +37,7 @@ h2 {
     width: 250px;
     background-color:#9dc9f7;
     border-radius:10px;
-    border:1px solid #9dc9f7;
+    border:0px solid #9dc9f7;
 }
 
 .label_info {
