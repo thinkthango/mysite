@@ -113,7 +113,7 @@ def taskmanage_index(request):
             task.taskdate = task.taskdate.strftime('%Y-%m-%d %H:%M:%S')
             new_task_list.append(task)
 
-    if len(task_list) != 0:
+    if len(task_list) == 0:
         return render(request,'taskmanage.html',{'username':username,'user_list':user_list})
     else:
         return render(request,'taskmanage.html',

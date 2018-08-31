@@ -1,8 +1,18 @@
 a:link {color:#FF0000;} /* 未访问的链接 */
-a:visited {color:#ffc107;} /* 已访问的链接 */
+a:visited {color:#dc11b8;} /* 已访问的链接 */
 a:hover {color:#FF00FF;} /* 鼠标划过链接 */
 a:active {color:#0000FF;} /* 已选中的链接 */
 
+html,body{height: 100%;width: 100%;margin:0;padding:0;}
+
+body{
+    background:url(../image/bg.jpg) no-repeat;
+    width:100%;
+    height:100%;
+    background-size:100% 100%;
+    position:absolute;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../image/bg.jpg',sizingMethod='scale');
+}
 
 footer{
     position: fixed;

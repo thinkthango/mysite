@@ -165,7 +165,7 @@ function searchPerson(){
                 th3.innerHTML = '任务内容';
                 th4.innerHTML = '任务时间';
                 th5.innerHTML = '执行人员';
-                th5.setAttribute('style','"color:red;"');
+                th5.setAttribute("style","color:#02ff00;");
                 th6.innerHTML = '执行状态';
                 th7.innerHTML = '备注';
                 tr1.appendChild(th1);
