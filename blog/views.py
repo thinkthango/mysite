@@ -101,19 +101,23 @@ def taskmanage_index(request):
     task_list = TaskInfo.objects.all()
     user_list = UserInfo.objects.all()
 
-    # 任务编号设置（最大值+1）
-    newtaskno = TaskInfo.objects.all().order_by('-taskno')[0].taskno + 1
-    # 任务时间格式调整
+    newtaskno = 0
     new_task_list = []
-    for task in task_list:
-        task.taskdate = task.taskdate.strftime('%Y-%m-%d %H:%M:%S')
-        new_task_list.append(task)
 
-    if not task_list:
+    # if len(task_list) != 0:
+    if len(task_list):
+        # 任务编号设置（最大值+1）
+        newtaskno = TaskInfo.objects.all().order_by('-taskno')[0].taskno + 1
+        # 任务时间格式调整
+        for task in task_list:
+            task.taskdate = task.taskdate.strftime('%Y-%m-%d %H:%M:%S')
+            new_task_list.append(task)
+
+    if len(task_list) != 0:
         return render(request,'taskmanage.html',{'username':username,'user_list':user_list})
     else:
         return render(request,'taskmanage.html',
-                      {'task_list':task_list,'username':username,
+                      {'task_list':new_task_list,'username':username,
                        'user_list':user_list,'newtaskno':newtaskno}
                       )
 
@@ -208,21 +212,23 @@ def taskmanage_search(request):
         else:
             return render(request,'login.html')
     task_list = TaskInfo.objects.filter(taskperson=searchperson)
-    user_list = UserInfo.objects.all()
+    # user_list = UserInfo.objects.all()
 
-    # 任务编号设置（最大值+1）
-    newtaskno = TaskInfo.objects.all().order_by('-taskno')[0].taskno + 1
-    # 任务时间格式调整
+    # newtaskno = 0
     new_task_list = []
-    for task in task_list:
-        task_dict = {}
-        task_dict['taskno'] = task.taskno
-        task_dict['taskcontent'] = task.taskcontent
-        task_dict['taskdate'] = task.taskdate.strftime('%Y-%m-%d %H:%M:%S')
-        task_dict['taskperson'] = task.taskperson
-        task_dict['taskstatus'] = task.taskstatus
-        task_dict['taskps'] = task.taskps
-        new_task_list.append(task_dict)
+    if len(task_list) != 0:
+        # 任务编号设置（最大值+1）
+        newtaskno = TaskInfo.objects.all().order_by('-taskno')[0].taskno + 1
+        # 任务时间格式调整
+        for task in task_list:
+            task_dict = {}
+            task_dict['taskno'] = task.taskno
+            task_dict['taskcontent'] = task.taskcontent
+            task_dict['taskdate'] = task.taskdate.strftime('%Y-%m-%d %H:%M:%S')
+            task_dict['taskperson'] = task.taskperson
+            task_dict['taskstatus'] = task.taskstatus
+            task_dict['taskps'] = task.taskps
+            new_task_list.append(task_dict)
     return HttpResponse(json.dumps({'tasks':new_task_list,'cnt':len(new_task_list)}))
 
     # if not new_task_list:

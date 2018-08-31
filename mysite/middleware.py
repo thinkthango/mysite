@@ -10,7 +10,7 @@ class SecureRequiredMiddleware(object):
 
     def __init__(self):
         self.paths = getattr(settings, 'SECURE_REQUIRED_PATHS')
-        self.enabled = self.paths and getattr(settings, 'HTTPS_SUPPORT')
+        self.enabled = self.paths
 
     def process_request(self, request):
         if self.enabled and not request.is_secure():
@@ -19,4 +19,4 @@ class SecureRequiredMiddleware(object):
                     request_url = request.build_absolute_uri(request.get_full_path())
                     secure_url = request_url.replace('http://', 'https://')
                     return HttpResponsePermanentRedirect(secure_url)
-        return None
+        return request

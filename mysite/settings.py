@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'werkzeug_debugger_runserver',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +50,22 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'mysite.middleware.SecureRequiredMiddleware',
+]
+
+SECURE_REQUIRED_PATHS = [
+    'admin/',
+    # 'blog/',
+    # 'login/',
+    # 'register/',
+    # 'userinfo/check',
+    # '',
+    # 'taskmanage/',
+    # 'taskmanage/add',
+    # 'taskmanage/search',
+    # 'taskmanage/select_taskbyno',
+    # 'taskmanage/delete_taskbyno',
+    # 'taskmanage/update_taskbyno',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
