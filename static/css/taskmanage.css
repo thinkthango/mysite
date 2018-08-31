@@ -94,7 +94,9 @@ tr th{
 .addBox,.editBox{
     width: 500px;
     height: 470px;
-    position: fixed;left: 45%; top: 30%;
+    position: fixed;
+    left: 45%;
+    top: 25%;
     margin-left: -250px;
     //background: #b1ea8e;
     border: 0px solid #000000;

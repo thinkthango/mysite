@@ -2,10 +2,13 @@
 $(document).ready(function(){
     turnGray(); //完成状态数据背景置灰
     replaceBr(); //内容中换行符显示
+    movePage('.addHeader','.addBox');//移动新增窗口
+    movePage('.editHeader','.editBox');//移动编辑窗口
 });
 
 function addClick(){
     $(".addForm input[name='taskdate']").val(getNowFormatDate());
+    $('.addBox').css({'left': '45%','top': '25%','margin-left': '-250px'});
     jQuery('body,.addBox').show();
     return 0;
 }
@@ -44,6 +47,7 @@ function editClick(){
             },
         error :function(){alert('请求错误！');}
     });
+     $('.editBox').css({'left': '45%','top': '25%','margin-left': '-250px'});
     jQuery('body,.editBox').show();
     return 0;
 }
@@ -264,6 +268,43 @@ function replaceBr(){
         span.appendChild(p_end);
         $(this).append(span);
     });
+}
+
+//页面拖动
+function movePage(strHear,strForm) {
+    $(strHear).mousedown(
+        function(event) {
+
+            $(strForm).css("margin","0px")
+
+            var isMove = true;
+            var abs_x = event.pageX - ($(strForm).offset().left+10);
+            var abs_y = event.pageY - ($(strForm).offset().top+10);
+            $(document).mousemove(function(event) {
+                if(isMove) {
+                    var obj = $(strForm);
+                    obj.css({
+                        'left': event.pageX - abs_x,
+                        'top': event.pageY - abs_y
+                    });
+                }
+            }).mouseup(
+                function() {
+                    var obj = $(strForm);
+                    //还原样式，并获取
+                    obj.css({
+                        'left': $(strForm).offset().left-10,
+                        'top': $(strForm).offset().top-10
+                    });
+                    $(strForm).css("margin-left","10px")
+                    $(strForm).css("margin-top","10px")
+
+                    isMove = false;
+                }
+            );
+        }
+    );
+
 }
 
 function getCookie(c_name)

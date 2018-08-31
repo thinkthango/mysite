@@ -151,48 +151,48 @@
     <div class="box">
       <div class="addBox">
         <div class="addHeader">
-          <span><b>新增任务</b></span>
-          <a href="javascript:;" onclick="jQuery('.addBox').hide();" class="close">×&nbsp;&nbsp;</a>
+          <span class="txt"><b>新增任务</b></span>
         </div>
-
-        <form class="addForm" action="" onsubmit="return addTask();" method="post">
-          {% csrf_token %}
-          <br>任务编号<span class="space"></span>
-          <input type="text" name="taskno" value={{ newtaskno }} readonly>
-          <br><br>任务内容<span class="space"></span>
-          <!--<input type="text" name="taskcontent">-->
-          <textarea name="taskcontent"></textarea>
-          <br><br>任务时间<span class="space"></span>
-          <input type="datetime-local" name="taskdate">
-          <br><br>执行人员<span class="space"></span>
-          <select name="taskperson">
-            <option></option>
-            {% for u in user_list %}
-              <option> {{ u.user }} </option>
-            {% endfor %}
-          </select>
-          <!--<input type="text" name="taskperson">-->
-          <br><br>执行状态<span class="space"></span>
-          <select name="taskstatus">
-            <option>未开始</option>
-            <option>执行中</option>
-            <option>已完成</option>
-          </select>
-          <br><br>备注一下<span class="space"></span>
-          <input type="text" name="taskps" value="">
-          <br><br>
-          <div align="right">
-            <input type="button" value="重置" class="task_clearbtn" onclick="clearAddbox();">
-            <input type="submit" value="保存" class="task_savebtn" >
-          </div>
-        </form>
-
+          <a href="javascript:;" onclick="jQuery('.addBox').hide();" class="close">×&nbsp;&nbsp;</a>
+          <div>
+            <form class="addForm" action="" onsubmit="return addTask();" method="post">
+              {% csrf_token %}
+              <br>任务编号<span class="space"></span>
+              <input type="text" name="taskno" value={{ newtaskno }} readonly>
+              <br><br>任务内容<span class="space"></span>
+              <!--<input type="text" name="taskcontent">-->
+              <textarea name="taskcontent"></textarea>
+              <br><br>任务时间<span class="space"></span>
+              <input type="datetime-local" name="taskdate">
+              <br><br>执行人员<span class="space"></span>
+              <select name="taskperson">
+                <option></option>
+                {% for u in user_list %}
+                  <option> {{ u.user }} </option>
+                {% endfor %}
+              </select>
+              <!--<input type="text" name="taskperson">-->
+              <br><br>执行状态<span class="space"></span>
+              <select name="taskstatus">
+                <option>未开始</option>
+                <option>执行中</option>
+                <option>已完成</option>
+              </select>
+              <br><br>备注一下<span class="space"></span>
+              <input type="text" name="taskps" value="">
+              <br><br>
+              <div align="right">
+                <input type="button" value="重置" class="task_clearbtn" onclick="clearAddbox();">
+                <input type="submit" value="保存" class="task_savebtn" >
+              </div>
+            </form>
+        </div>
       </div>
       <div class="editBox">
         <div class="editHeader">
-          <span><b>编辑任务</b></span>
-          <a href="javascript:;" onclick="jQuery('.editBox').hide();" class="close">×&nbsp;&nbsp;</a>
+          <span class="txt"><b>编辑任务</b></span>
         </div>
+          <a href="javascript:;" onclick="jQuery('.editBox').hide();" class="close">×&nbsp;&nbsp;</a>
 
         <form class="editForm" action="" onsubmit="return editTask()" method="post">
           {% csrf_token %}
