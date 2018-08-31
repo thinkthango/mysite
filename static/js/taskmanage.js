@@ -152,7 +152,7 @@ function searchPerson(){
                 var cnt = data.cnt;
                 // var infos = $('tbody');
                 // $('tbody').empty(); //清空tbody内容
-                $('.data_table').empty(); //清空tbody内容
+                $('#data_table').empty(); //清空tbody内容
                 var tr1 = document.createElement("tr");
                 var th1 = document.createElement("th");
                 var th2 = document.createElement("th");
@@ -176,7 +176,8 @@ function searchPerson(){
                 tr1.appendChild(th5);
                 tr1.appendChild(th6);
                 tr1.appendChild(th7);
-                $('.data_table').append(tr1);
+                //为了加滚动条，表头单独拿出来了
+                // $('.data_table').append(tr1);
 
                 for(var i=0;i<cnt;i++){
                     var tr = document.createElement("tr");
@@ -205,7 +206,7 @@ function searchPerson(){
                     tr.appendChild(taskperson);
                     tr.appendChild(taskstatus);
                     tr.appendChild(taskps);
-                    $('.data_table').append(tr);
+                    $('#data_table').append(tr);
                 }
                 // $(".data_table").append(infos);
                 turnGray();
@@ -230,7 +231,7 @@ function clearAddbox(){
 
 //已完成状态数据背景色置灰
 function turnGray(){
-    $(".data_table tr").children().each(function(){
+    $("#data_table tr").children().each(function(){
         if ($(this).text()=='已完成'){
             $(this).parent().css({"background":"gray","opacity":"0.8"});
         }
@@ -239,17 +240,29 @@ function turnGray(){
 
 //内容显示换行符
 function replaceBr(){
-    var content = $('.data_table tr td:nth-child(3)');
+    var content = $('#data_table tr td:nth-child(3)');
     content.each(function(){
         var txt = $(this).text();
         var j =0;
+        var span = document.createElement("span");
         for(i=0;i<txt.length;i++){
             if(txt.charAt(i)=='\n'){
-                $(this).innerHTML = txt.slice(j,i);
-                $(this).append(document.createElement("br"));
+                var p = document.createElement("p");
+                var partTxt = txt.slice(j,i);
+                p.innerHTML = partTxt;
+                //由于p标签内容为空时，页面不显示空行，加一个<br>
+                    if(partTxt==''){
+                        p.appendChild(document.createElement("br"));
+                    }
+                span.appendChild(p);
                 j = i + 1;
             }
         }
+        var p_end = document.createElement("p");
+        p_end.innerHTML = txt.slice(j);
+        $(this).text('');
+        span.appendChild(p_end);
+        $(this).append(span);
     });
 }
 

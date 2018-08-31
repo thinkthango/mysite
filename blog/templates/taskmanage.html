@@ -95,7 +95,7 @@
     }
 
     </script>
-    <br><br>
+
     <div class="manage_btn">
       <span>
         <button class="add" onclick="addClick();">新增</button>
@@ -119,8 +119,8 @@
     <br><br>
     <hr style="height:2px;border:none;border-top:2px ridge;" />
 
-    <!--数据区-->
-    <table class="data_table">
+    <!--表头单独拉出来（滚动条固定问题）-->
+    <table class="data_table head">
       <tr>
         <th>选择</th>
         <th>任务编号</th>
@@ -131,6 +131,9 @@
         <th>备注</th>
       </tr>
 
+    </table>
+    <!--数据区-->
+    <table  id= "data_table" class="data_table">
       {% for task in task_list %}
       <tr>
         <td><input type="radio" name="select_record" checked="checked"> </td>

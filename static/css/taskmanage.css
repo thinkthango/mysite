@@ -30,20 +30,34 @@ h1{
 
 .data_table{
     width:90%;
-    margin: 20px 5% 0px 5%;
+    margin: 0px 5% 0px 5%;
     background:#d8efd8;
-    //border-style: solid;
-    //border-width:1px;
-    //border-color: grey;
-    //border-collapse: collapse;
-    //padding:2px;
-    //border-color: transparent;
+    /*设置相邻单元格的边框间的距离*/
+    border-spacing: 0;
+    /*表格设置合并边框模型*/
+    border-collapse: collapse;
+    text-align: center;
 }
-tr th{
-    text-align:center;
-    background:#827302;
-    color:white;
+/*关键设置 tbody出现滚动条*/
+table tbody {
+    display: block;
+    height: 448px;
+    overflow-y: scroll;
 }
+table thead,tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+/*关键设置：滚动条默认宽度是16px 将thead的宽度减16px*/
+table thead {
+    width: calc( 100% - 1em);
+    position:fixed;
+}
+table thead th {
+    background: #ccc;
+}
+
 tr td{
     text-align:center;
     color:#000;
@@ -54,6 +68,20 @@ tr td:nth-child(3){
 }
 tr td:nth-child(7){
     text-align:left;
+}
+
+.data_table.head tbody{
+    height: 21px;
+    overflow-y:hidden;
+    width: calc( 100% - 17px);
+}
+.data_table.head{
+    background: #827302;
+}
+tr th{
+    text-align:center;
+    background:#827302;
+    color:white;
 }
 
 /*
