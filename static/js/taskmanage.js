@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
-    turnGray();
+    turnGray(); //完成状态数据背景置灰
+    replaceBr(); //内容中换行符显示
 });
 
 function addClick(){
@@ -232,6 +233,22 @@ function turnGray(){
     $(".data_table tr").children().each(function(){
         if ($(this).text()=='已完成'){
             $(this).parent().css({"background":"gray","opacity":"0.8"});
+        }
+    });
+}
+
+//内容显示换行符
+function replaceBr(){
+    var content = $('.data_table tr td:nth-child(3)');
+    content.each(function(){
+        var txt = $(this).text();
+        var j =0;
+        for(i=0;i<txt.length;i++){
+            if(txt.charAt(i)=='\n'){
+                $(this).innerHTML = txt.slice(j,i);
+                $(this).append(document.createElement("br"));
+                j = i + 1;
+            }
         }
     });
 }

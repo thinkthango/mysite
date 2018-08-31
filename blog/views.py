@@ -111,6 +111,9 @@ def taskmanage_index(request):
         # 任务时间格式调整
         for task in task_list:
             task.taskdate = task.taskdate.strftime('%Y-%m-%d %H:%M:%S')
+            # 任务内容增加换行符处理（js处理）
+            # task.taskcontent = task.taskcontent.replace('\n','<br>')
+            # print('taskcontent',task.taskcontent)
             new_task_list.append(task)
 
     if len(task_list) == 0:
@@ -123,7 +126,7 @@ def taskmanage_index(request):
 
 @csrf_exempt
 def taskmanage_add(request):
-    print('fnc taskmanage_index() start')
+    print('fnc taskmanage_add() start')
     if request.method == 'POST':
         print('taskmanage_add',request.body.decode())
         req = json.loads(request.body.decode())
@@ -134,7 +137,6 @@ def taskmanage_add(request):
         taskstatus = req.get('taskstatus')
         taskps = req.get('taskps')
         # print('taskno:',taskno)
-        # print('taskcontent:',taskcontent)
         # print('taskdate:',taskdate)
         # print('taskperson:',taskperson)
         # print('taskstatus:',taskstatus)
