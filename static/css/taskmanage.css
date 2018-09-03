@@ -17,7 +17,26 @@ h1{
 .manage_btn button{
     width:80px;
     height:40px;
-    margin: 0px 30px 0px 0px;
+    margin: 0px 20px 0px 0px;
+    background: #aad2f4;
+    border: 1px solid;
+    border-color: #8b9ad5;
+    color:#6969a1;
+}
+.task_search_box{
+    width:100px;
+    height:40px;
+    margin: 2px 20px 0px 0px;
+    background: #aad2f4;
+    border: 1px solid;
+    border-color: #8b9ad5;
+    color:#6969a1;
+}
+
+.manage_btn :hover {
+    color:#0e30b8;
+    font-weight: bold;
+    /*background: #31b0d5;*/
 }
 
 .data_table,.data_table tr th, .data_table tr td{
@@ -27,6 +46,7 @@ h1{
 .data_table{
     width:90%;
     margin: 0px 5% 0px 5%;
+    padding: 0px;
     background:#d8efd8;
     /*设置相邻单元格的边框间的距离*/
     border-spacing: 0;
@@ -59,9 +79,20 @@ tr td{
     color:#000;
     word-break:break-all;
 }
-tr td:nth-child(3){
+tr td:nth-child(1),tr th:nth-child(1){
+    width:5%;
+}
+tr td:nth-child(2),tr th:nth-child(2){
+    width:5%;
+}
+tr td:nth-child(3),tr th:nth-child(3){
+    width:40%;
     text-align:left;
 }
+tr th:nth-child(3){
+    text-align:center;
+}
+
 tr td:nth-child(7){
     text-align:left;
 }
@@ -156,10 +187,6 @@ span.space{
     height:50px !important;
     margin-right:20%;
     //background:#99f5a5;
-}
-.task_search_box{
-    width:100px;
-    height:40px;
 }
 
 select[name="search_person"]{
