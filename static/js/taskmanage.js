@@ -2,8 +2,8 @@
 $(document).ready(function(){
     turnGray(); //完成状态数据背景置灰
     replaceBr(); //内容中换行符显示
-    movePage('.addHeader','.addBox');//移动新增窗口
-    movePage('.editHeader','.editBox');//移动编辑窗口
+    movePage('addHeader','addBox');//移动新增窗口
+    movePage('editHeader','editBox');//移动编辑窗口
 });
 
 function addClick(){
@@ -284,39 +284,87 @@ function replaceBr(){
 }
 
 //页面拖动
-function movePage(strHear,strForm) {
-    $(strHear).mousedown(
-        function(event) {
+function movePage(strHeader,strForm) {
+//    $(strHeader).mousedown(
+//        function(event) {
+//
+////            $(strForm).css("margin","0px")
+//
+//            var isMove = true;
+//            var abs_x = event.pageX - ($(strForm).offset().left);
+//            var abs_y = event.pageY - ($(strForm).offset().top);
+//            var x = event.pageX - ($(strForm).offset().left);
+//            var y = event.pageY - ($(strForm).offset().top);
+//            $(document).mousemove(function(event) {
+//                if(isMove) {
+//                    var obj = $(strForm);
+//                    console.log(event.pageX,event.pageY,$(strForm).offset().left,$(strForm).offset().top);
+//                    obj.css({
+//                        'left': event.pageX - x,
+//                        'top': event.pageY - y
+//                    });
+//                }
+//            }).mouseup(
+//                function() {
+//                    var obj = $(strForm);
+//                    //还原样式，并获取
+//                    obj.css({
+//                        'left': event.pageX,
+//                        'top': event.pageY
+//                    });
+//                    $(strForm).css("margin-left","0px")
+//                    $(strForm).css("margin-top","0px")
+//
+//                    isMove = false;
+//                }
+//            );
+//        }
+//    );
 
-            $(strForm).css("margin","0px")
 
-            var isMove = true;
-            var abs_x = event.pageX - ($(strForm).offset().left+10);
-            var abs_y = event.pageY - ($(strForm).offset().top+10);
-            $(document).mousemove(function(event) {
-                if(isMove) {
-                    var obj = $(strForm);
-                    obj.css({
-                        'left': event.pageX - abs_x,
-                        'top': event.pageY - abs_y
-                    });
-                }
-            }).mouseup(
-                function() {
-                    var obj = $(strForm);
-                    //还原样式，并获取
-                    obj.css({
-                        'left': $(strForm).offset().left-10,
-                        'top': $(strForm).offset().top-10
-                    });
-                    $(strForm).css("margin-left","10px")
-                    $(strForm).css("margin-top","10px")
+    //获取元素
+    var hd = document.getElementByClassName(strHeader);
+    var box = document.getElementByClassName(strForm);
+    var x = 0;
+    var y = 0;
+    var l = 0;
+    var t = 0;
+    var isDown = false;
+    //鼠标按下事件
+    hd.onmousedown = function(e) {
+        //获取x坐标和y坐标
+        x = e.clientX;
+        y = e.clientY;
 
-                    isMove = false;
-                }
-            );
+        //获取左部和顶部的偏移量
+        l = dv.offsetLeft;
+        t = dv.offsetTop;
+        //开关打开
+        isDown = true;
+        //设置样式
+        dv.style.cursor = 'move';
+    }
+    //鼠标移动
+    window.onmousemove = function(e) {
+        if (isDown == false) {
+            return;
         }
-    );
+        //获取x和y
+        var nx = e.clientX;
+        var ny = e.clientY;
+        //计算移动后的左偏移量和顶部的偏移量
+        var nl = nx - (x - l);
+        var nt = ny - (y - t);
+
+        box.style.left = nl + 'px';
+        box.style.top = nt + 'px';
+    }
+    //鼠标抬起事件
+    hd.onmouseup = function() {
+        //开关关闭
+        isDown = false;
+        dv.style.cursor = 'default';
+    }
 
 }
 
