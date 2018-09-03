@@ -2,10 +2,13 @@
 $(document).ready(function(){
     turnGray(); //完成状态数据背景置灰
     replaceBr(); //内容中换行符显示
+    movePage('.addHeader','.addBox');//移动新增窗口
+    movePage('.editHeader','.editBox');//移动编辑窗口
 });
 
 function addClick(){
     $(".addForm input[name='taskdate']").val(getNowFormatDate());
+    $('.addBox').css({'left': '45%','top': '25%','margin-left': '-250px'});
     jQuery('body,.addBox').show();
     return 0;
 }
@@ -44,6 +47,7 @@ function editClick(){
             },
         error :function(){alert('请求错误！');}
     });
+     $('.editBox').css({'left': '45%','top': '25%','margin-left': '-250px'});
     jQuery('body,.editBox').show();
     return 0;
 }
@@ -152,7 +156,7 @@ function searchPerson(){
                 var cnt = data.cnt;
                 // var infos = $('tbody');
                 // $('tbody').empty(); //清空tbody内容
-                $('.data_table').empty(); //清空tbody内容
+                $('#data_table').empty(); //清空tbody内容
                 var tr1 = document.createElement("tr");
                 var th1 = document.createElement("th");
                 var th2 = document.createElement("th");
@@ -176,7 +180,8 @@ function searchPerson(){
                 tr1.appendChild(th5);
                 tr1.appendChild(th6);
                 tr1.appendChild(th7);
-                $('.data_table').append(tr1);
+                //为了加滚动条，表头单独拿出来了
+                // $('.data_table').append(tr1);
 
                 for(var i=0;i<cnt;i++){
                     var tr = document.createElement("tr");
@@ -205,7 +210,7 @@ function searchPerson(){
                     tr.appendChild(taskperson);
                     tr.appendChild(taskstatus);
                     tr.appendChild(taskps);
-                    $('.data_table').append(tr);
+                    $('#data_table').append(tr);
                 }
                 // $(".data_table").append(infos);
                 turnGray();
@@ -230,7 +235,7 @@ function clearAddbox(){
 
 //已完成状态数据背景色置灰
 function turnGray(){
-    $(".data_table tr").children().each(function(){
+    $("#data_table tr").children().each(function(){
         if ($(this).text()=='已完成'){
             $(this).parent().css({"background":"gray","opacity":"0.8"});
         }
@@ -239,18 +244,67 @@ function turnGray(){
 
 //内容显示换行符
 function replaceBr(){
-    var content = $('.data_table tr td:nth-child(3)');
+    var content = $('#data_table tr td:nth-child(3)');
     content.each(function(){
         var txt = $(this).text();
         var j =0;
+        var span = document.createElement("span");
         for(i=0;i<txt.length;i++){
             if(txt.charAt(i)=='\n'){
-                $(this).innerHTML = txt.slice(j,i);
-                $(this).append(document.createElement("br"));
+                var p = document.createElement("p");
+                var partTxt = txt.slice(j,i);
+                p.innerHTML = partTxt;
+                //由于p标签内容为空时，页面不显示空行，加一个<br>
+                    if(partTxt==''){
+                        p.appendChild(document.createElement("br"));
+                    }
+                span.appendChild(p);
                 j = i + 1;
             }
         }
+        var p_end = document.createElement("p");
+        p_end.innerHTML = txt.slice(j);
+        $(this).text('');
+        span.appendChild(p_end);
+        $(this).append(span);
     });
+}
+
+//页面拖动
+function movePage(strHear,strForm) {
+    $(strHear).mousedown(
+        function(event) {
+
+            $(strForm).css("margin","0px")
+
+            var isMove = true;
+            var abs_x = event.pageX - ($(strForm).offset().left+10);
+            var abs_y = event.pageY - ($(strForm).offset().top+10);
+            $(document).mousemove(function(event) {
+                if(isMove) {
+                    var obj = $(strForm);
+                    obj.css({
+                        'left': event.pageX - abs_x,
+                        'top': event.pageY - abs_y
+                    });
+                }
+            }).mouseup(
+                function() {
+                    var obj = $(strForm);
+                    //还原样式，并获取
+                    obj.css({
+                        'left': $(strForm).offset().left-10,
+                        'top': $(strForm).offset().top-10
+                    });
+                    $(strForm).css("margin-left","10px")
+                    $(strForm).css("margin-top","10px")
+
+                    isMove = false;
+                }
+            );
+        }
+    );
+
 }
 
 function getCookie(c_name)

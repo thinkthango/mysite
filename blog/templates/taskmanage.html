@@ -26,9 +26,9 @@
 
   <body>
     <h1 class="userinfo username">
-      <a href="#" class="bind_hover_card" data-toggle="popover" data-placement="bottom" data-trigger="hover" style="margin:0px;">
+      <span href="#" class="bind_hover_card" data-toggle="popover" data-placement="bottom" data-trigger="hover" style="margin:0px;">
         <img src='../../static/image/photo.jpg'>
-      </a>
+      </span>
       {{ username }}
       <span class="myquote" style="font-size:15px;color:#ff6d15;">路漫漫其修远兮...</span>
     </h1>
@@ -68,7 +68,7 @@
 
     //模拟动态加载内容(真实情况可能会跟后台进行ajax交互)
     function content() {
-        var data = $("<ul style='width:350px;height:100px;center:right;'>" +
+        var data = $("<ul style='width:320px;height:100px;center:right;'>" +
                         "<li>座右铭&nbsp;" +
                           "<input type='text' class='newQuote'>" +
                           "&nbsp;<input id='quoteBtn' type='button' value='保存' onclick='saveQuote()'/>" +
@@ -78,7 +78,7 @@
                         "<li><font style='color:white;'>退出去</font>&nbsp;" +
                           "<input type='password' class='newPwd' style='visibility: hidden;' disabled>" +
                           "&nbsp;<input id='exitBtn' type='button' value='退出' onclick='exit()'/>" +
-                      "</ul>"
+                      "</ul>" + "<p style='text-align: right;color:blue;font-size:12px'>⭐再次点击头像退出弹窗⭐</p>"
                     );
 
         return data;
@@ -95,7 +95,7 @@
     }
 
     </script>
-    <br><br>
+
     <div class="manage_btn">
       <span>
         <button class="add" onclick="addClick();">新增</button>
@@ -119,8 +119,8 @@
     <br><br>
     <hr style="height:2px;border:none;border-top:2px ridge;" />
 
-    <!--数据区-->
-    <table class="data_table">
+    <!--表头单独拉出来（滚动条固定问题）-->
+    <table class="data_table head">
       <tr>
         <th>选择</th>
         <th>任务编号</th>
@@ -131,6 +131,9 @@
         <th>备注</th>
       </tr>
 
+    </table>
+    <!--数据区-->
+    <table  id= "data_table" class="data_table">
       {% for task in task_list %}
       <tr>
         <td><input type="radio" name="select_record" checked="checked"> </td>
@@ -148,48 +151,48 @@
     <div class="box">
       <div class="addBox">
         <div class="addHeader">
-          <span><b>新增任务</b></span>
-          <a href="javascript:;" onclick="jQuery('.addBox').hide();" class="close">×&nbsp;&nbsp;</a>
+          <span class="txt"><b>新增任务</b></span>
         </div>
-
-        <form class="addForm" action="" onsubmit="return addTask();" method="post">
-          {% csrf_token %}
-          <br>任务编号<span class="space"></span>
-          <input type="text" name="taskno" value={{ newtaskno }} readonly>
-          <br><br>任务内容<span class="space"></span>
-          <!--<input type="text" name="taskcontent">-->
-          <textarea name="taskcontent"></textarea>
-          <br><br>任务时间<span class="space"></span>
-          <input type="datetime-local" name="taskdate">
-          <br><br>执行人员<span class="space"></span>
-          <select name="taskperson">
-            <option></option>
-            {% for u in user_list %}
-              <option> {{ u.user }} </option>
-            {% endfor %}
-          </select>
-          <!--<input type="text" name="taskperson">-->
-          <br><br>执行状态<span class="space"></span>
-          <select name="taskstatus">
-            <option>未开始</option>
-            <option>执行中</option>
-            <option>已完成</option>
-          </select>
-          <br><br>备注一下<span class="space"></span>
-          <input type="text" name="taskps" value="">
-          <br><br>
-          <div align="right">
-            <input type="button" value="重置" class="task_clearbtn" onclick="clearAddbox();">
-            <input type="submit" value="保存" class="task_savebtn" >
-          </div>
-        </form>
-
+          <a href="javascript:;" onclick="jQuery('.addBox').hide();" class="close">×&nbsp;&nbsp;</a>
+          <div>
+            <form class="addForm" action="" onsubmit="return addTask();" method="post">
+              {% csrf_token %}
+              <br>任务编号<span class="space"></span>
+              <input type="text" name="taskno" value={{ newtaskno }} readonly>
+              <br><br>任务内容<span class="space"></span>
+              <!--<input type="text" name="taskcontent">-->
+              <textarea name="taskcontent"></textarea>
+              <br><br>任务时间<span class="space"></span>
+              <input type="datetime-local" name="taskdate">
+              <br><br>执行人员<span class="space"></span>
+              <select name="taskperson">
+                <option></option>
+                {% for u in user_list %}
+                  <option> {{ u.user }} </option>
+                {% endfor %}
+              </select>
+              <!--<input type="text" name="taskperson">-->
+              <br><br>执行状态<span class="space"></span>
+              <select name="taskstatus">
+                <option>未开始</option>
+                <option>执行中</option>
+                <option>已完成</option>
+              </select>
+              <br><br>备注一下<span class="space"></span>
+              <input type="text" name="taskps" value="">
+              <br><br>
+              <div align="right">
+                <input type="button" value="重置" class="task_clearbtn" onclick="clearAddbox();">
+                <input type="submit" value="保存" class="task_savebtn" >
+              </div>
+            </form>
+        </div>
       </div>
       <div class="editBox">
         <div class="editHeader">
-          <span><b>编辑任务</b></span>
-          <a href="javascript:;" onclick="jQuery('.editBox').hide();" class="close">×&nbsp;&nbsp;</a>
+          <span class="txt"><b>编辑任务</b></span>
         </div>
+          <a href="javascript:;" onclick="jQuery('.editBox').hide();" class="close">×&nbsp;&nbsp;</a>
 
         <form class="editForm" action="" onsubmit="return editTask()" method="post">
           {% csrf_token %}
