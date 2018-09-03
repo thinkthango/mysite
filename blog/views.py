@@ -115,14 +115,16 @@ def taskmanage_index(request):
             # task.taskcontent = task.taskcontent.replace('\n','<br>')
             # print('taskcontent',task.taskcontent)
             new_task_list.append(task)
-
-    if len(task_list) == 0:
-        return render(request,'taskmanage.html',{'username':username,'user_list':user_list})
     else:
-        return render(request,'taskmanage.html',
-                      {'task_list':new_task_list,'username':username,
-                       'user_list':user_list,'newtaskno':newtaskno}
-                      )
+        newtaskno = 1
+
+    # if len(task_list) == 0:
+    #     return render(request,'taskmanage.html',{'username':username,'user_list':user_list})
+    # else:
+    return render(request,'taskmanage.html',
+                    {'task_list':new_task_list,'username':username,
+                    'user_list':user_list,'newtaskno':newtaskno}
+                    )
 
 @csrf_exempt
 def taskmanage_add(request):
