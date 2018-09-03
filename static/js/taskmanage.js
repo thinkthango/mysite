@@ -138,9 +138,19 @@ function delTask(){
     return 0;
 }
 
+$(function(){
+    $('.task_search_box').bind('keypress',function(event){
+        if(event.keyCode == "13")
+        {
+            searchPerson();
+        }
+    });
+});
+
 function searchPerson(){
-    searchperson = $('select[name="search_person"] option:selected').text();
-    if(searchperson.trim()==''){
+//    search_conditon = $('select[name="search_person"] option:selected').text();
+    search_conditon = $('.task_search_box').val();
+    if(search_conditon.trim()==''){
         window.location.reload();
         return true;
     }
@@ -150,7 +160,7 @@ function searchPerson(){
             cache : false,
             url : "./search",
             dataType: "json",
-            data : "searchperson=" + searchperson,
+            data : "search_conditon=" + search_conditon,
             success:function(data){
                 var tasks = data.tasks;
                 var cnt = data.cnt;
@@ -216,7 +226,7 @@ function searchPerson(){
                 turnGray();
                 //$('html').html(data);
                 //设置条件人员被选中
-                $("select[name='search_person'] option[text='" + searchperson + "']").attr("selected", true);
+                //$("select[name='search_person'] option[text='" + searchperson + "']").attr("selected", true);
             },
             error :function(){alert('请求错误！');}
     });
@@ -238,6 +248,9 @@ function turnGray(){
     $("#data_table tr").children().each(function(){
         if ($(this).text()=='已完成'){
             $(this).parent().css({"background":"gray","opacity":"0.8"});
+        }
+        if ($(this).text()=='已暂停'){
+            $(this).parent().css({"background":"yellow","opacity":"0.8"});
         }
     });
 }

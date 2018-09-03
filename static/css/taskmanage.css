@@ -161,6 +161,10 @@ span.space{
     margin-right:20%;
     //background:#99f5a5;
 }
+.task_search_box{
+    width:100px;
+    height:40px;
+}
 
 select[name="search_person"]{
     height: 40px;

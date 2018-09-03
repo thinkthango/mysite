@@ -98,7 +98,7 @@ def taskmanage_index(request):
             username = request.COOKIES["username"]
         else:
             return render(request,'login.html')
-    task_list = TaskInfo.objects.all()
+    task_list = TaskInfo.objects.all().order_by('-taskno')
     user_list = UserInfo.objects.all()
 
     newtaskno = 0
@@ -207,15 +207,16 @@ def taskmanage_search(request):
     print('fnc taskmanage_search() start')
     username = u'无名大侠'
     if request.method == 'GET':
-        searchperson = request.GET.get('searchperson')
-        print(searchperson)
-        searchperson = str.strip(searchperson,' ')
+        # searchperson = request.GET.get('searchperson')
+        search_conditon = request.GET.get('search_conditon')
+        print(search_conditon)
+        search_conditon = str.strip(search_conditon,' ')
 
         if 'username' in request.COOKIES:
             username = request.COOKIES["username"]
         else:
             return render(request,'login.html')
-    task_list = TaskInfo.objects.filter(taskperson=searchperson)
+    task_list = TaskInfo.objects.all()
     # user_list = UserInfo.objects.all()
 
     # newtaskno = 0
@@ -226,13 +227,16 @@ def taskmanage_search(request):
         # 任务时间格式调整
         for task in task_list:
             task_dict = {}
-            task_dict['taskno'] = task.taskno
-            task_dict['taskcontent'] = task.taskcontent
-            task_dict['taskdate'] = task.taskdate.strftime('%Y-%m-%d %H:%M:%S')
-            task_dict['taskperson'] = task.taskperson
-            task_dict['taskstatus'] = task.taskstatus
-            task_dict['taskps'] = task.taskps
-            new_task_list.append(task_dict)
+            # 实现模糊查询
+            if search_conditon.upper() in (task.taskcontent + task.taskdate.strftime('%Y-%m-%d %H:%M:%S') + task.taskperson
+                + task.taskstatus + task.taskps).upper():
+                task_dict['taskno'] = task.taskno
+                task_dict['taskcontent'] = task.taskcontent
+                task_dict['taskdate'] = task.taskdate.strftime('%Y-%m-%d %H:%M:%S')
+                task_dict['taskperson'] = task.taskperson
+                task_dict['taskstatus'] = task.taskstatus
+                task_dict['taskps'] = task.taskps
+                new_task_list.append(task_dict)
     return HttpResponse(json.dumps({'tasks':new_task_list,'cnt':len(new_task_list)}))
 
     # if not new_task_list:

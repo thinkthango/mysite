@@ -107,14 +107,17 @@
         <button class="delete" onclick="delTask();">删除</button>
       </span>
       <span>
-        <button class="search" disabled style="background:gray;opacity:0.5">查询</button>
+        <!--<button class="search" disabled style="background:gray;opacity:0.5">查询</button>-->
+        <input type="text" class="task_search_box" value="输入内容查询"
+                onclick="if($(this).val()=='输入内容查询'){$(this).val('');}"
+                onmouseout="if($(this).val()==''){$(this).val('输入内容查询');}">
       </span>
-      <select name="search_person" onchange="searchPerson();" title="按人员查询">
-        <option></option>
-        {% for u in user_list %}
-          <option> {{ u.user }} </option>
-        {% endfor %}
-      </select>
+      <!--<select name="search_person" onchange="searchPerson();" title="按人员查询">-->
+        <!--<option></option>-->
+        <!--{% for u in user_list %}-->
+          <!--<option> {{ u.user }} </option>-->
+        <!--{% endfor %}-->
+      <!--</select>-->
     </div>
     <br><br>
     <hr style="height:2px;border:none;border-top:2px ridge;" />
@@ -176,6 +179,7 @@
               <select name="taskstatus">
                 <option>未开始</option>
                 <option>执行中</option>
+                <option>已暂停</option>
                 <option>已完成</option>
               </select>
               <br><br>备注一下<span class="space"></span>
@@ -215,6 +219,7 @@
           <select name="taskstatus">
             <option>未开始</option>
             <option>执行中</option>
+            <option>已暂停</option>
             <option>已完成</option>
           </select>
           <br><br>备注一下<span class="space"></span>
