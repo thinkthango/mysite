@@ -103,7 +103,7 @@ tr td:nth-child(7){
 .data_table.head tbody{
     height: 21px;
     overflow-y:hidden;
-    width: calc( 100% - 17px);
+    width: calc( 100% - 21px);
 }
 .data_table.head{
     background: #827302;
