@@ -34,9 +34,3 @@ urlpatterns = [
     path('taskmanage/update_taskbyno', views.taskmanage_update_taskbyno),
     path('add/<int:a>/<int:b>', views.add),
 ]
-
-
-
-
-
-
