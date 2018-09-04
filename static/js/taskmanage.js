@@ -4,7 +4,23 @@ $(document).ready(function(){
     replaceBr(); //内容中换行符显示
     movePage('.addHeader','.addBox');//移动新增窗口
     movePage('.editHeader','.editBox');//移动编辑窗口
+    init();
 });
+
+function init(){
+    //搜索框回车事件
+    $('.task_search_box').bind('keypress',function(event){
+        if(event.keyCode == "13")
+        {
+            searchPerson();
+        }
+    });
+
+    //点击一行，选择框自动勾选
+    $('tr').bind('click',function(){
+        $(this).find('input').prop('checked',true);
+    });
+}
 
 function addClick(){
     $(".addForm input[name='taskdate']").val(getNowFormatDate());
@@ -140,15 +156,6 @@ function delTask(){
     return 0;
 }
 
-$(function(){
-    $('.task_search_box').bind('keypress',function(event){
-        if(event.keyCode == "13")
-        {
-            searchPerson();
-        }
-    });
-});
-
 function searchPerson(){
 //    search_conditon = $('select[name="search_person"] option:selected').text();
     search_conditon = $('.task_search_box').val();
@@ -231,6 +238,11 @@ function searchPerson(){
                 //$("select[name='search_person'] option[text='" + searchperson + "']").attr("selected", true);
             },
             error :function(){alert('请求错误！');}
+    });
+    //新生成元素重新绑定事件
+    //点击一行，选择框自动勾选
+    $('tr').bind('click',function(){
+        $(this).find('input').prop('checked',true);
     });
     return true;
 }
