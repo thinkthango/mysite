@@ -59,7 +59,7 @@ tr th, tr td{
 /*关键设置 tbody出现滚动条*/
 table tbody {
     display: block;
-    height: 448px;
+    height: 648px;
     overflow-y: scroll;
 }
 
@@ -102,7 +102,7 @@ tr td:nth-child(7){
 
 .data_table.head tbody{
     height: 21px;
-    overflow-y:auto;
+    overflow-y:hidden;
     width: calc( 100% - 17px);
 }
 .data_table.head{
