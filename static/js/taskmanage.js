@@ -2,14 +2,15 @@
 $(document).ready(function(){
     turnGray(); //完成状态数据背景置灰
     replaceBr(); //内容中换行符显示
-    movePage('addHeader','addBox');//移动新增窗口
-    movePage('editHeader','editBox');//移动编辑窗口
+    movePage('.addHeader','.addBox');//移动新增窗口
+    movePage('.editHeader','.editBox');//移动编辑窗口
 });
 
 function addClick(){
     $(".addForm input[name='taskdate']").val(getNowFormatDate());
     $('.addBox').css({'left': '45%','top': '25%','margin-left': '-250px'});
-    jQuery('body,.addBox').show();
+    $(".shadow").css({'display':'block'});
+    $('.addBox').show();
     return 0;
 }
 
@@ -48,7 +49,8 @@ function editClick(){
         error :function(){alert('请求错误！');}
     });
      $('.editBox').css({'left': '45%','top': '25%','margin-left': '-250px'});
-    jQuery('body,.editBox').show();
+    $(".shadow").css({'display':'block'});
+    $('.editBox').show();
     return 0;
 }
 
@@ -284,81 +286,42 @@ function replaceBr(){
 }
 
 //页面拖动
+var isMove = false;
+var x = 0;
+var y = 0;
+var offx = 0;
+var offy = 0;
+
 function movePage(strHeader,strForm) {
-   $(strHeader).mousedown(
-       function(event) {
-
-//            $(strForm).css("margin","0px")
-
-           var isMove = true;
-           var abs_x = event.clientX - ($(strForm).offset().left);
-           var abs_y = event.clientY - ($(strForm).offset().top);
-           $(document).mousemove(function(event) {
-               if(isMove) {
-                   var obj = $(strForm);
-                   obj.css({
-                       'left': event.clientX - abs_x,
-                       'top': event.clientY - abs_y
-                   });
-               }
-           }).mouseup(
-               function() {
-                   var obj = $(strForm);
-                   //还原样式，并获取
-                   obj.css({
-                       'left': event.clientX - $(strForm).offset().left,
-                       'top': event.clientY - $(strForm).offset().top
-                   });
-                   isMove = false;
-               }
-           );
-       }
-   );
-
-
-    // //获取元素
-    // var hd = document.getElementById(strHeader);
-    // var box = document.getElementById(strForm);
-    // var x = 0;
-    // var y = 0;
-    // var l = 0;
-    // var t = 0;
-    // var isDown = false;
-    // //鼠标按下事件
-    // hd.onmousedown = function(e) {
-    //     //获取x坐标和y坐标
-    //     x = e.clientX;
-    //     y = e.clientY;
-    //
-    //     //获取左部和顶部的偏移量
-    //     l = hd.offsetLeft;
-    //     t = hd.offsetTop;
-    //     //开关打开
-    //     isDown = true;
-    //     //设置样式
-    //     // dv.style.cursor = 'move';
-    // }
-    // //鼠标移动
-    // window.onmousemove = function(e) {
-    //     if (isDown == false) {
-    //         return;
-    //     }
-    //     //获取x和y
-    //     var nx = e.clientX;
-    //     var ny = e.clientY;
-    //     //计算移动后的左偏移量和顶部的偏移量
-    //     var nl = nx - (x - l);
-    //     var nt = ny - (y - t);
-    //
-    //     box.style.left = nl + 'px';
-    //     box.style.top = nt + 'px';
-    // }
-    // //鼠标抬起事件
-    // hd.onmouseup = function() {
-    //     //开关关闭
-    //     isDown = false;
-    //     // dv.style.cursor = 'default';
-    // }
+//    strHeader = strForm;
+    $(strHeader).mousedown(
+        function(event) {
+            isMove = true;
+            x = event.clientX;
+            y = event.clientY;
+            offx = $(strForm).offset().left;
+            offy = $(strForm).offset().top;
+        }
+    );
+    $(document).mousemove(
+        function(event) {
+            if(isMove) {
+                console.log('onmousemove isMove',isMove,event.clientX,event.clientY,offx,offy);
+                $(strForm).css({
+//                    'left': (event.clientX - (x-offx) ) + 'px',
+//                    'top': (event.clientY - (y-offy) )  + 'px'
+                    'left': (event.clientX - (0) ) + 'px',
+                    'top': (event.clientY - (0) )  + 'px'
+                });
+            }
+        }
+    );
+    $(document).mouseup(
+        function() {
+            console.log('mouseup isMove',isMove);
+            isMove = false;
+        }
+    );
 
 }
 

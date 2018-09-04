@@ -128,6 +128,7 @@ tr th{
     //background: #b1ea8e;
     border: 0px solid #000000;
     display:none;
+    z-index:999;
     padding:0px;
     background-image:url(../image/timg.jpg);
     background-repeat:no-repeat;

@@ -120,7 +120,7 @@
       <!--</select>-->
     </div>
     <br><br>
-    <hr style="height:2px;border:none;border-top:2px ridge;" />
+    <hr style="height:1px;border:none;border-top:1px ridge;" />
 
     <!--表头单独拉出来（滚动条固定问题）-->
     <table class="data_table head">
@@ -156,7 +156,7 @@
         <div id="addHeader" class="addHeader">
           <span class="txt"><b>新增任务</b></span>
         </div>
-          <a href="javascript:;" onclick="jQuery('.addBox').hide();" class="close">×&nbsp;&nbsp;</a>
+          <a href="javascript:;" onclick="jQuery('.addBox').hide();jQuery('.shadow').hide();" class="close">×&nbsp;&nbsp;</a>
           <div>
             <form class="addForm" action="" onsubmit="return addTask();" method="post">
               {% csrf_token %}
@@ -196,7 +196,7 @@
         <div id="editHeader" class="editHeader">
           <span class="txt"><b>编辑任务</b></span>
         </div>
-          <a href="javascript:;" onclick="jQuery('.editBox').hide();" class="close">×&nbsp;&nbsp;</a>
+          <a href="javascript:;" onclick="jQuery('.editBox').hide();jQuery('.shadow').hide();" class="close">×&nbsp;&nbsp;</a>
 
         <form class="editForm" action="" onsubmit="return editTask()" method="post">
           {% csrf_token %}
@@ -234,18 +234,18 @@
     </div>
 
     <!--遮罩层-->
-    <!--<div style="z-index:19891022; background-color:#000; opacity:0.3; filter:alpha(opacity=30);"></div>-->
+    <div class="shadow"></div>
 
-    <!--<script type="text/javascript">-->
-    <!--function showDiv(){-->
-        <!--document.getElementById('popDiv').style.display='block';-->
-        <!--document.getElementById('bg').style.display='block';-->
-    <!--}-->
-    <!--function closeDiv(){-->
-        <!--document.getElementById('popDiv').style.display='none';-->
-        <!--document.getElementById('bg').style.display='none';-->
-    <!--}-->
-    <!--</script>-->
+    <script type="text/javascript">
+    function showDiv(){
+        document.getElementById('popDiv').style.display='block';
+        document.getElementById('bg').style.display='block';
+    }
+    function closeDiv(){
+        document.getElementById('popDiv').style.display='none';
+        document.getElementById('bg').style.display='none';
+    }
+    </script>
 
     <!--底部版权-->
     <footer>
