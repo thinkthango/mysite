@@ -249,10 +249,10 @@ function clearAddbox(){
 function turnGray(){
     $("#data_table tr").children().each(function(){
         if ($(this).text()=='已完成'){
-            $(this).parent().css({"background":"gray","opacity":"0.8"});
+            $(this).parent().css({"background":"gray","opacity":"0.7"});
         }
         if ($(this).text()=='已暂停'){
-            $(this).parent().css({"background":"yellow","opacity":"0.8"});
+            $(this).parent().css({"background":"yellow","opacity":"0.7"});
         }
     });
 }
@@ -311,7 +311,8 @@ function movePage(strHeader,strForm) {
 //                    'left': (event.clientX - (x-offx) ) + 'px',
 //                    'top': (event.clientY - (y-offy) )  + 'px'
                     'left': (event.clientX - (0) ) + 'px',
-                    'top': (event.clientY - (0) )  + 'px'
+                    'top': (event.clientY - (0) )  + 'px',
+                    'cursor':'move'
                 });
             }
         }
@@ -319,6 +320,9 @@ function movePage(strHeader,strForm) {
     $(document).mouseup(
         function() {
             console.log('mouseup isMove',isMove);
+            $(strForm).css({
+                'cursor':'default'
+            });
             isMove = false;
         }
     );

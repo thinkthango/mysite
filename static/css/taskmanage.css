@@ -39,8 +39,10 @@ h1{
     /*background: #31b0d5;*/
 }
 
-.data_table,.data_table tr th, .data_table tr td{
-    border:1px solid #878a8c;
+tr th, tr td{
+    border:1px solid rgba(2, 2, 2, 0.1);
+    border-width:0px 1px 1px 0px;
+    padding:3px;
 }
 
 .data_table{
@@ -60,6 +62,7 @@ table tbody {
     height: 448px;
     overflow-y: scroll;
 }
+
 table thead,tbody tr {
     display: table;
     width: 100%;
@@ -99,7 +102,7 @@ tr td:nth-child(7){
 
 .data_table.head tbody{
     height: 21px;
-    overflow-y:hidden;
+    overflow-y:auto;
     width: calc( 100% - 17px);
 }
 .data_table.head{
@@ -109,6 +112,7 @@ tr th{
     text-align:center;
     background:#827302;
     color:white;
+    padding:0px;
 }
 
 /*
