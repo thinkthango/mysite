@@ -5,6 +5,9 @@ $(document).ready(function(){
     movePage('.addHeader','.addBox');//移动新增窗口
     movePage('.editHeader','.editBox');//移动编辑窗口
     init();  //初始化设置
+    if(!NotificationHandler.isPermissionGranted()){
+        NotificationHandler.requestPermission();
+    }
     setInterval('tipATask();', 5000);; //新任务通知
 });
 
@@ -479,9 +482,9 @@ var NotificationHandler = {
     }
 };
 //此处无效，不能由页面调用(onload)
-document.addEventListener('load', function() {
-    NotificationHandler.requestPermission();
-});
+//document.addEventListener('load', function() {
+//    NotificationHandler.requestPermission();
+//});
 
 function tipATask(){
     currentuser = $("#loginuser").text();
