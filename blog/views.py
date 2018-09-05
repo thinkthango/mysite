@@ -174,6 +174,24 @@ def taskmanage_select_taskbyno(request):
     return HttpResponse('NG')
 
 @csrf_exempt
+def taskmanage_tasktip(request):
+    print('fnc taskmanage_tasktip() start')
+    if request.method == 'GET':
+        currentuser = request.GET.get('currentuser')
+        task_untip = TaskInfo.objects.filter(taskperson=currentuser,tasktipflg=0).count()
+        print(currentuser,task_untip)
+        if task_untip > 0:
+            return HttpResponse("OK")
+        else:
+            return HttpResponse("NG")
+    if request.method == 'POST':
+        currentuser = request.POST.get('currentuser')
+        TaskInfo.objects.filter(taskperson=currentuser,tasktipflg=0).update(tasktipflg=1)
+
+    return HttpResponse(u"已通知")
+
+
+@csrf_exempt
 def taskmanage_update_taskbyno(request):
     print('fnc taskmanage_update_taskbyno() start')
     if request.method == 'POST':

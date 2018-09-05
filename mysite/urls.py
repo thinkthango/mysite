@@ -32,5 +32,6 @@ urlpatterns = [
     path('taskmanage/select_taskbyno', views.taskmanage_select_taskbyno),
     path('taskmanage/delete_taskbyno', views.taskmanage_delete_taskbyno),
     path('taskmanage/update_taskbyno', views.taskmanage_update_taskbyno),
+    path('taskmanage/tasktip', views.taskmanage_tasktip),
     path('add/<int:a>/<int:b>', views.add),
 ]

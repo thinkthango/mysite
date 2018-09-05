@@ -4,7 +4,8 @@ $(document).ready(function(){
     replaceBr(); //内容中换行符显示
     movePage('.addHeader','.addBox');//移动新增窗口
     movePage('.editHeader','.editBox');//移动编辑窗口
-    init();
+    init();  //初始化设置
+    setInterval('tipATask();', 5000);; //新任务通知
 });
 
 function init(){
@@ -77,6 +78,22 @@ function addTask(){
     taskperson = $("select[name='taskperson']").val();
     taskstatus = $("select[name='taskstatus']").val();
     taskps = $("input[name='taskps']").val();
+
+    if(taskcontent==''){
+        $('.addTips').text('请输入任务内容！');
+        $("textarea[name='taskcontent']").focus();
+        return false;
+    }
+    if(taskdate==''){
+        $('.addTips').text('请选择任务时间！');
+        $("input[name='taskdate']").focus();
+        return false;
+    }
+    if(taskperson==''){
+        $('.addTips').text('请选择执行人员！');
+        $("select[name='taskperson']").focus();
+        return false;
+    }
 
     clearAddbox();
     $('.addBox').hide();
@@ -254,7 +271,7 @@ function clearAddbox(){
     $("select[name='taskperson']").val('');
     $("select[name='taskstatus']").val('未开始');
     $("input[name='taskps']").val('');
-
+    $('.addTips').text('');
 }
 
 //已完成状态数据背景色置灰
@@ -385,4 +402,116 @@ function getNowFormatDate() {
             + "T" + strHours + seperator2 + strMinutes;
             //+ seperator2 + date.getSeconds();
     return currentdate;
+}
+
+
+/******** 消息提醒 ***********/
+
+var NotificationHandler = {
+    isNotificationSupported : 'Notification' in window,
+    isPermissionGranted : function() {
+        return Notification.permission === 'granted';
+    },
+    requestPermission : function() {
+        //验证浏览器是否支持Notification，如果不支持打印提示信息并返回
+        if (!this.isNotificationSupported) {
+            console.log('当前浏览器不支持Notification API');
+            return;
+        }
+        //该方法将会询问用户是否允许显示通知,不能由页面调用(onload)，必须由用户主动事件触发(onclick等)
+        //当用户同意之后，再次调用该方法则无效，即该方法仅对Notification.Permission不为'granted'的时候起作用
+        Notification.requestPermission(function(status) {
+            //status是授权状态，如果用户允许显示桌面通知，则status为'granted'
+            console.log('status: ' + status);
+            //permission只读属性:
+            //    default 用户没有接收或拒绝授权 不能显示通知
+            //    granted 用户接受授权 允许显示通知
+            //    denied  用户拒绝授权 不允许显示通知
+            var permission = Notification.permission;
+            console.log('permission: ' + permission);
+        });
+    },
+    showNotification : function() {
+        if (!this.isNotificationSupported) {
+            console.log('当前浏览器不支持Notification API');
+            return;
+        }
+        if (!this.isPermissionGranted()) {
+            console.log('当前页面未被授权使用Notification通知');
+            return;
+        }
+
+        var n = new Notification("您有一条新消息", {
+            icon : '../static/image/photo.jpg',
+            body : '您有新的任务，请关注！'
+        });
+
+        //onshow函数在消息框显示时会被调用
+        //可以做一些数据记录及定时操作等
+        n.onshow = function() {
+            console.log('显示通知信息');
+            //5秒后自动关闭消息框
+            setTimeout(function() {
+                n.close();
+            }, 5000);
+        };
+
+        //消息框被点击时被调用
+        //可以打开相关的视图，同时关闭该消息框等操作
+        n.onclick = function() {
+            alert('打开相关视图');
+            //opening the view...
+            n.close();
+        };
+
+        //当有错误发生时会onerror函数会被调用
+        //如果没有granted授权，创建Notification对象实例时，也会执行onerror函数
+        n.onerror = function() {
+            console.log('产生错误');
+            //do something useful
+        };
+
+        //一个消息框关闭时onclose函数会被调用
+        n.onclose = function() {
+            console.log('关闭通知窗口');
+            //do something useful
+        };
+    }
+};
+//此处无效，不能由页面调用(onload)
+document.addEventListener('load', function() {
+    NotificationHandler.requestPermission();
+});
+
+function tipATask(){
+    currentuser = $("#loginuser").text();
+    var isTip=false;
+    //后台获取新任务信息
+    $.ajax({
+            type : "GET",
+            async : false,
+            cache : false,
+            url : "./tasktip",
+            data : "currentuser=" + currentuser,
+            success:function(data){
+                    if(data=='OK'){
+                        isTip = true;
+                    }
+                },
+            error :function(){alert('通知信息获取异常！');}
+        });
+    if(isTip){
+        NotificationHandler.showNotification();
+        //更新tipflg
+        $.ajax({
+                type : "POST",
+                async : false,
+                cache : false,
+                url : "./tasktip",
+                data : "currentuser=" + currentuser,
+                success:function(data){},
+                error :function(){alert('通知信息更新异常！');}
+            });
+    }
+    return 0;
 }

@@ -20,3 +20,4 @@ class TaskInfo(models.Model):
     taskperson = models.CharField(max_length=50)  # 执行人员
     taskstatus = models.CharField(max_length=1)  # 执行状态
     taskps = models.CharField(max_length=255)  # 备注信息
+    tasktipflg = models.IntegerField(default=0)  # 新任务消息是否已推送

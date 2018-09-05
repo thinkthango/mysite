@@ -11,9 +11,9 @@
       <quote-values-containing-separator value="false" />
       <quote-all-values value="false" />
       <value-separator value="" />
-      <file-name value="blog_taskinfo_0903.xls" />
+      <file-name value="blog_taskinfo_0905.xls" />
       <file-location value="Q:\testskill\python\mysite" />
-      <scope value="GLOBAL" />
+      <scope value="SELECTION" />
       <destination value="FILE" />
       <format value="EXCEL" />
       <charset value="GBK" />
