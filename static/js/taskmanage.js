@@ -423,7 +423,7 @@ var NotificationHandler = {
         }
         //该方法将会询问用户是否允许显示通知,不能由页面调用(onload)，必须由用户主动事件触发(onclick等)
         //当用户同意之后，再次调用该方法则无效，即该方法仅对Notification.Permission不为'granted'的时候起作用
-        Notification.requestPermission(function(status) {
+        Notification.requestPermission().then(function(status) {
             //status是授权状态，如果用户允许显示桌面通知，则status为'granted'
             console.log('status: ' + status);
             //permission只读属性:
