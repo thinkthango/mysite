@@ -75,26 +75,26 @@ function editClick(){
 }
 
 function addTask(){
-    taskno = $("input[name='taskno']").val();
-    taskcontent = $("textarea[name='taskcontent']").val();
-    taskdate = $("input[name='taskdate']").val();
-    taskperson = $("select[name='taskperson']").val();
-    taskstatus = $("select[name='taskstatus']").val();
-    taskps = $("input[name='taskps']").val();
+    taskno = $(".addForm input[name='taskno']").val();
+    taskcontent = $(".addForm textarea[name='taskcontent']").val();
+    taskdate = $(".addForm input[name='taskdate']").val();
+    taskperson = $(".addForm select[name='taskperson']").val();
+    taskstatus = $(".addForm select[name='taskstatus']").val();
+    taskps = $(".addForm input[name='taskps']").val();
 
     if(taskcontent==''){
         $('.addTips').text('请输入任务内容！');
-        $("textarea[name='taskcontent']").focus();
+        $(".addForm textarea[name='taskcontent']").focus();
         return false;
     }
     if(taskdate==''){
         $('.addTips').text('请选择任务时间！');
-        $("input[name='taskdate']").focus();
+        $(".addForm input[name='taskdate']").focus();
         return false;
     }
     if(taskperson==''){
         $('.addTips').text('请选择执行人员！');
-        $("select[name='taskperson']").focus();
+        $(".addForm select[name='taskperson']").focus();
         return false;
     }
 
@@ -127,10 +127,25 @@ function addTask(){
 }
 
 function editTask(){
+    taskno = $(".editForm input[name='taskno']").val();
+    taskcontent = $(".editForm textarea[name='taskcontent']").val();
+    taskperson = $(".editForm select[name='taskperson']").val();
+    taskstatus = $(".editForm select[name='taskstatus']").val();
+    taskps = $(".editForm input[name='taskps']").val();
+
+    if(taskcontent==''){
+        $('.editTips').text('请输入任务内容！');
+        $(".editForm textarea[name='taskcontent']").focus();
+        return false;
+    }
+
+    if(taskperson==''){
+        $('.editTips').text('请选择执行人员！');
+        $(".editForm select[name='taskperson']").focus();
+        return false;
+    }
+
     $('.editBox').hide();
-    taskno = $('.editForm input[name="taskno"]').val();
-    taskstatus = $('.editForm select[name="taskstatus"]').val();
-    taskps = $('.editForm input[name="taskps"]').val();
 
     $.ajax({
         type : "POST",
@@ -139,7 +154,8 @@ function editTask(){
         url : "./update_taskbyno",
         data : JSON.stringify({
             'taskno':taskno,
-            //'taskcontent':taskcontent,
+            'taskcontent':taskcontent,
+            'taskperson':taskperson,
             'taskstatus':taskstatus,
             'taskps':taskps,
             'csrfmiddlewaretoken':$("[name='csrfmiddlewaretoken']").val() //getCookie("csrftoken")
@@ -286,6 +302,14 @@ function turnGray(){
         if ($(this).text()=='已暂停'){
             $(this).parent().css({"background":"yellow","opacity":"0.7"});
         }
+    });
+
+    var origin_backcolor;
+    $('tr').hover(function(){
+        origin_backcolor = $(this).css('background');
+        $(this).css('background','#6b9fd0');
+    },function(){
+        $(this).css('background',origin_backcolor);
     });
 }
 
@@ -444,7 +468,7 @@ var NotificationHandler = {
             return;
         }
 
-        var n = new Notification("您有一条新消息", {
+        var n = new Notification("Hi，亲", {
             icon : '../static/image/photo.jpg',
             body : '您有新的任务，请关注！'
         });

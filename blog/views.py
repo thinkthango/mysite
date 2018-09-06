@@ -199,10 +199,14 @@ def taskmanage_update_taskbyno(request):
         # req = json.loads(urllib.parse.unquote(request.body, encoding='utf-8', errors='replace'))
         req = json.loads(request.body.decode('utf-8'))
         taskno = req.get('taskno')
+        taskcontent = req.get('taskcontent')
+        taskperson = req.get('taskperson')
         taskstatus = req.get('taskstatus')
         taskps = req.get('taskps')
         task = TaskInfo.objects.get(taskno=taskno)
         # print('query sql :',str(task.query))
+        task.taskcontent = taskcontent
+        task.taskperson = taskperson
         task.taskstatus = taskstatus
         task.taskps = taskps
         task.save()

@@ -198,19 +198,20 @@
         <div id="editHeader" class="editHeader">
           <span class="txt"><b>编辑任务</b></span>
         </div>
-          <a href="javascript:;" onclick="jQuery('.editBox').hide();jQuery('.shadow').hide();" class="close">×&nbsp;&nbsp;</a>
+        <span class="editTips" style="color:red;margin-left:150px;"></span>
+        <a href="javascript:;" onclick="jQuery('.editBox').hide();jQuery('.shadow').hide();" class="close">×&nbsp;&nbsp;</a>
 
         <form class="editForm" action="" onsubmit="return editTask()" method="post">
           {% csrf_token %}
           <br>任务编号<span class="space"></span>
-          <input type="text" name="taskno" value={{ newtaskno }} readonly>
+          <input type="text" name="taskno" value={{ newtaskno }} disabled>
           <br><br>任务内容<span class="space"></span>
           <!--<input type="text" name="taskcontent">-->
-          <textarea name="taskcontent" disabled></textarea>
+          <textarea name="taskcontent" ></textarea>
           <br><br>任务时间<span class="space"></span>
-          <input type="datetime-local" name="taskdate" disabled>
+          <input type="datetime-local" name="taskdate" readonly>
           <br><br>执行人员<span class="space"></span>
-          <select name="taskperson" disabled>
+          <select name="taskperson">
             <option></option>
             {% for u in user_list %}
               <option> {{ u.user }} </option>

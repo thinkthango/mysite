@@ -56,6 +56,9 @@ tr th, tr td{
     border-collapse: collapse;
     text-align: center;
 }
+.data_table tr{
+    background:#d8efd8;
+}
 /*关键设置 tbody出现滚动条*/
 table tbody {
     display: block;
@@ -170,9 +173,11 @@ input[name='taskno']{
 }
 
 .editForm textarea, .editForm select[name="taskperson"], .editForm input[name="taskdate"] {
+    //background:rgba(210,202,202,0.8);
+}
+.editForm input[name="taskdate"]{
     background:rgba(210,202,202,0.8);
 }
-
 
 span.space{
     margin-left:30px;

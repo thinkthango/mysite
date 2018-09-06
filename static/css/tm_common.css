@@ -18,6 +18,12 @@ tr:hover{
     background:#6b9fd0;
 }
 
+.close:hover{
+    font-size:28px;
+    font-weight: bold;
+    color:red;
+}
+
 .shadow{
     width:100%;
     height:100%;
