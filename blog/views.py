@@ -213,6 +213,18 @@ def taskmanage_update_taskbyno(request):
         return HttpResponse('OK')
     return HttpResponse('NG')
 
+@csrf_exempt
+def taskmanage_update_password(request):
+    print('fnc taskmanage_update_password() start')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        task = UserInfo.objects.get(user=username)
+        task.pwd = password
+        task.save()
+        return HttpResponse('OK')
+    return HttpResponse('NG')
+
 
 @csrf_exempt
 def taskmanage_delete_taskbyno(request):

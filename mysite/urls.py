@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
 from blog import views
+
 
 
 urlpatterns = [
@@ -33,5 +33,7 @@ urlpatterns = [
     path('taskmanage/delete_taskbyno', views.taskmanage_delete_taskbyno),
     path('taskmanage/update_taskbyno', views.taskmanage_update_taskbyno),
     path('taskmanage/tasktip', views.taskmanage_tasktip),
+    path('taskmanage/updatepwd', views.taskmanage_update_password),
     path('add/<int:a>/<int:b>', views.add),
 ]
+

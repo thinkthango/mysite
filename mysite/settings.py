@@ -26,9 +26,19 @@ SECRET_KEY = 'g%)4!qv9!5$!^g7raeusdp)2s1&%o=r2=1rb8s4icxkca(avw1'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+SECURE_SSL_REDIRECT = True
 
 # Application definition
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'mysite.middleware.SecureRequiredMiddleware', #http-->https
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -40,33 +50,13 @@ INSTALLED_APPS = [
     'blog',
     'werkzeug_debugger_runserver',
     'django_extensions',
+    'sslserver',
 ]
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'mysite.middleware.SecureRequiredMiddleware',
-]
 
-SECURE_REQUIRED_PATHS = [
-    'admin/',
-    # 'blog/',
-    # 'login/',
-    # 'register/',
-    # 'userinfo/check',
-    # '',
-    # 'taskmanage/',
-    # 'taskmanage/add',
-    # 'taskmanage/search',
-    # 'taskmanage/select_taskbyno',
-    # 'taskmanage/delete_taskbyno',
-    # 'taskmanage/update_taskbyno',
-]
+# SECURE_REQUIRED_PATHS = [
+#     'http://',
+# ]
 
 ROOT_URLCONF = 'mysite.urls'
 

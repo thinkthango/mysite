@@ -73,10 +73,10 @@
                           "<input type='text' class='newQuote'>" +
                           "&nbsp;<input id='quoteBtn' type='button' value='保存' onclick='saveQuote()'/>" +
                         "<li>新密码&nbsp;" +
-                          "<input type='password' class='newPwd' disabled>" +
-                          "&nbsp;<input id='repwdBtn' type='button' value='修改' disabled onclick='editPwd()'/>" +
+                          "<input type='password' class='newPwd'>" +
+                          "&nbsp;<input id='repwdBtn' type='button' value='修改' onclick='editPwd()'/>" +
                         "<li><font style='color:white;'>退出去</font>&nbsp;" +
-                          "<input type='password' class='newPwd' style='visibility: hidden;' disabled>" +
+                          "<input type='password' class='newPwd' style='visibility: hidden;' >" +
                           "&nbsp;<input id='exitBtn' type='button' value='退出' onclick='exit()'/>" +
                       "</ul>" + "<p style='text-align: right;color:blue;font-size:12px'>⭐再次点击头像退出弹窗⭐</p>"
                     );
@@ -88,6 +88,28 @@
     function saveQuote() {
         $('.myquote').text($('.newQuote').val());
         return 0;
+    }
+    //悬浮框修改
+    function editPwd() {
+      username = $('#loginuser').text();
+      password = $('.newPwd').val();
+      $.post(window.location.protocol + '//' + window.location.host + "/taskmanage/updatepwd",
+          {
+              username:username,
+              password:password,
+              csrfmiddlewaretoken:$("[name='csrfmiddlewaretoken']").val()
+          },
+          function(result,status){
+            if(result=='OK'){
+              alert('密码修改成功！新密码是【' + password + '】');
+              exit();
+            } else {
+              alert('密码修改失败！');
+            }
+          }
+      );
+
+      return 0;
     }
     //悬浮框退出
     function exit() {
