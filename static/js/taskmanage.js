@@ -16,7 +16,7 @@ function init(){
     $('.task_search_box').bind('keypress',function(event){
         if(event.keyCode == "13")
         {
-            searchPerson();
+            searchPerson($('.task_search_box').val());
         }
     });
 
@@ -176,9 +176,9 @@ function delTask(){
     return 0;
 }
 
-function searchPerson(){
+function searchPerson(search_conditon){
 //    search_conditon = $('select[name="search_person"] option:selected').text();
-    search_conditon = $('.task_search_box').val();
+//    search_conditon = $('.task_search_box').val();
     if(search_conditon.trim()==''){
         window.location.reload();
         return true;
@@ -462,8 +462,10 @@ var NotificationHandler = {
         //消息框被点击时被调用
         //可以打开相关的视图，同时关闭该消息框等操作
         n.onclick = function() {
-            alert('打开相关视图');
+            //alert('打开相关视图');
             //opening the view...
+            //更新任务列表
+            searchPerson('');
             n.close();
         };
 
