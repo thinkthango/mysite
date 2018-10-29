@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'blog',
     'werkzeug_debugger_runserver',
     'django_extensions',
-    # 'sslserver',
+    'sslserver',
 ]
 
 
