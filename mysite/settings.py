@@ -37,7 +37,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'mysite.middleware.SecureRequiredMiddleware', #http-->https
+    # 'mysite.middleware.SecureRequiredMiddleware', #http-->https
 ]
 
 INSTALLED_APPS = [
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'blog',
     'werkzeug_debugger_runserver',
     'django_extensions',
-    'sslserver',
+    # 'sslserver',
 ]
 
 
