@@ -48,9 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    'werkzeug_debugger_runserver',
-    'django_extensions',
-    'sslserver',
+    # 'werkzeug_debugger_runserver',
+    # 'django_extensions',
+    # 'sslserver',
 ]
 
 
