@@ -26,7 +26,7 @@ SECRET_KEY = 'g%)4!qv9!5$!^g7raeusdp)2s1&%o=r2=1rb8s4icxkca(avw1'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 
 # Application definition
 MIDDLEWARE = [
